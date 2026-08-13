@@ -1,0 +1,37 @@
+.stats {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.stats__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px;
+}
+
+.stats__item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.stats__value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--lime);
+}
+
+.stats__label {
+  font-size: 0.92rem;
+  color: rgba(247, 245, 239, 0.7);
+}
+
+@media (max-width: 700px) {
+  .stats__inner {
+    justify-content: center;
+    text-align: center;
+  }
+}
