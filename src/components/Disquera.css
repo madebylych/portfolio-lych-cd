@@ -1,0 +1,322 @@
+.disquera {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+  align-items: center;
+  height: 100svh;
+  padding: 5rem var(--margen) 2rem;
+  overflow: hidden;
+  background:
+    linear-gradient(115deg, transparent 58%, rgba(138, 93, 255, 0.22) 58%, rgba(60, 0, 193, 0.28)),
+    var(--noche);
+}
+
+/* ---------- panel de información ---------- */
+.disquera__info {
+  position: relative;
+  z-index: 2;
+  max-width: 26rem;
+}
+
+.disquera__titulo {
+  font-size: var(--t-3);
+  color: var(--lavanda-tenue);
+}
+
+.disquera__contador {
+  margin: 0.4rem 0 2.5rem;
+  font-size: var(--t-0);
+  color: var(--lavanda-tenue);
+  font-variant-numeric: tabular-nums;
+}
+
+.disquera__contador span {
+  font-family: var(--f-display);
+  font-size: var(--t-3);
+  color: var(--lavanda);
+}
+
+.disquera__mascara {
+  overflow: hidden;
+}
+
+.disquera__info h3 {
+  font-size: clamp(2.4rem, 4.6vw, 4.4rem);
+  line-height: 0.98;
+  padding-bottom: 0.1em;
+}
+
+.disquera__tipo {
+  margin: 0.9rem 0 1.2rem;
+  font-size: var(--t-0);
+  color: var(--violeta-claro);
+}
+
+.disquera__texto {
+  color: var(--lavanda-tenue);
+}
+
+.disquera__ver {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid var(--lavanda);
+  border-radius: 999px;
+  font-size: var(--t-0);
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+.disquera__ver:hover {
+  background: var(--lavanda);
+  color: var(--noche);
+}
+
+/* ---------- la caja en 3D ---------- */
+.disquera__escena {
+  position: relative;
+  height: 100%;
+  perspective: 2400px;
+  perspective-origin: 30% 20%;
+}
+
+.disquera__estante {
+  --w: min(30vw, 420px);
+  --h: calc(var(--w) * 0.76);
+  --d: 18px;
+  position: absolute;
+  left: 52%;
+  top: 68%;
+  transform-style: preserve-3d;
+  transform: rotateX(-16deg) rotateY(26deg);
+}
+
+.disquera__pista {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-style: preserve-3d;
+}
+
+.disco {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--w);
+  height: var(--h);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.disco--relleno {
+  cursor: default;
+}
+
+.disco__cuerpo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+/* cajas de vidrio tornasol: semitransparentes, con reflejos rosa,
+   lila, celeste y dorado que cambian según el ángulo de cada cara.
+   Las portadas van adentro sin perder opacidad. */
+.disco__cara {
+  --tornasol: linear-gradient(
+    125deg,
+    rgba(255, 170, 225, 0.5),
+    rgba(190, 160, 255, 0.42) 25%,
+    rgba(140, 215, 255, 0.4) 50%,
+    rgba(255, 235, 190, 0.38) 72%,
+    rgba(200, 150, 255, 0.5)
+  );
+  position: absolute;
+  backface-visibility: hidden;
+  background: var(--tornasol), rgba(30, 18, 48, 0.35);
+  background-size: 220% 220%, auto;
+  border: 1px solid rgba(255, 245, 255, 0.55);
+  box-shadow: inset 0 0 14px rgba(255, 255, 255, 0.18);
+}
+
+.disco__cara--frente {
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateZ(calc(var(--d) / 2));
+}
+
+/* reflejo diagonal del vidrio, solo sobre el marco (la imagen va encima) */
+.disco__cara--frente::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.18) 38%, transparent 46%);
+  pointer-events: none;
+}
+
+.disco__cara--frente img {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: calc(100% - 12px);
+  margin: 6px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+/* el disco activo brilla más y su tornasol se mueve despacio */
+.disco--activo .disco__cara {
+  border-color: rgba(255, 250, 255, 0.85);
+  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.25), 0 0 34px rgba(190, 160, 255, 0.35);
+  animation: tornasol 6s ease-in-out infinite alternate;
+}
+
+@keyframes tornasol {
+  from { background-position: 0% 0%, 0 0; }
+  to { background-position: 100% 100%, 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disco--activo .disco__cara {
+    animation: none;
+  }
+}
+
+/* barra tipo ventana sobre la portada, como en la referencia */
+.disco__barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--violeta-claro), var(--lavanda));
+  color: var(--noche);
+}
+
+.disco__botones {
+  display: flex;
+  gap: 3px;
+}
+
+.disco__botones i {
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--noche);
+}
+
+.disco__cara--atras {
+  inset: 0;
+  transform: rotateY(180deg) translateZ(calc(var(--d) / 2));
+}
+
+.disco__cara--lomo,
+.disco__cara--izq {
+  top: 0;
+  width: var(--d);
+  height: var(--h);
+  left: calc(var(--w) / 2 - var(--d) / 2);
+  background-position: 70% 30%, 0 0;
+}
+
+.disco__cara--lomo {
+  transform: rotateY(90deg) translateZ(calc(var(--w) / 2));
+  display: grid;
+  place-items: center;
+}
+
+.disco__cara--lomo span {
+  writing-mode: vertical-rl;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  color: var(--lavanda-tenue);
+}
+
+.disco__cara--izq {
+  transform: rotateY(-90deg) translateZ(calc(var(--w) / 2));
+}
+
+.disco__cara--techo {
+  left: 0;
+  width: var(--w);
+  height: var(--d);
+  top: calc(var(--h) / 2 - var(--d) / 2);
+  transform: rotateX(90deg) translateZ(calc(var(--h) / 2));
+  background-position: 30% 70%, 0 0;
+}
+
+
+/* ---------- lista plana (sin movimiento) ---------- */
+.disquera__lista {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.disquera__lista a {
+  display: grid;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.disquera__lista img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disquera {
+    height: auto;
+  }
+  .disquera__escena {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .disquera {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    padding-top: 5.5rem;
+  }
+  .disquera__escena {
+    grid-row: 1;
+  }
+  .disquera__estante {
+    --w: 58vw;
+    left: 50%;
+    top: 72%;
+  }
+  .disquera__info {
+    grid-row: 2;
+  }
+  .disquera__contador {
+    margin-bottom: 0.8rem;
+  }
+  .disquera__texto {
+    display: none;
+  }
+  .disquera__ver {
+    margin-top: 1rem;
+  }
+}
+
+/* pixel art: sin suavizado al escalar */
+.pixel-img {
+  image-rendering: pixelated;
+}
+
+/* las cajas de relleno son vidrio más tenue: delante del disco activo
+   no deben velar su portada */
+.disco--relleno .disco__cara {
+  opacity: 0.45;
+}

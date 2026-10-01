@@ -1,0 +1,148 @@
+.lab {
+  padding: 14rem var(--margen) 16rem;
+  overflow: hidden;
+}
+
+.lab__cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 7rem;
+}
+
+.lab__cabeza h2 {
+  font-size: clamp(3rem, 9vw, 8rem);
+  line-height: 0.9;
+}
+
+.lab__cabeza p {
+  max-width: 22rem;
+  color: var(--lavanda-tenue);
+}
+
+.lab__rejilla {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  align-items: start;
+}
+
+.lab__columna {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lab__columna:nth-child(2) {
+  margin-top: 4rem;
+}
+
+.lab__pieza {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+}
+
+.lab__pieza img {
+  width: 100%;
+  transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), filter 1s;
+  filter: saturate(0.85) brightness(0.92);
+}
+
+.lab__pieza:hover img,
+.lab__pieza:focus-visible img {
+  transform: scale(1.05);
+  filter: saturate(1.1) brightness(1);
+}
+
+.lab__pie {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: grid;
+  gap: 0.6rem;
+  padding: 2.5rem 1rem 0.9rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.78) 35%, rgba(0, 0, 0, 0.92));
+  font-size: var(--t-0);
+  text-align: left;
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.lab__pie-fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.lab__pie-fila span:last-child {
+  color: var(--lavanda-tenue);
+}
+
+/* descripción opcional de la pieza */
+.lab__descripcion {
+  font-size: var(--t-0);
+  line-height: 1.5;
+  color: var(--lavanda);
+}
+
+.lab__pieza:hover .lab__pie,
+.lab__pieza:focus-visible .lab__pie {
+  transform: translateY(0);
+}
+
+@media (max-width: 699px) {
+  .lab__rejilla {
+    grid-template-columns: 1fr 1fr;
+  }
+  .lab__columna:nth-child(2) {
+    margin-top: 3rem;
+  }
+  .lab__columna:nth-child(3) {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr;
+  }
+  /* en móvil el pie va debajo de la imagen, no encima: así no tapa las fotos horizontales */
+  .lab__pie {
+    position: static;
+    transform: none;
+    padding: 0.6rem 0.2rem 0;
+    background: none;
+  }
+  .lab__pie-fila {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .lab__pie-fila span:last-child {
+    font-size: 0.75rem;
+  }
+}
+
+/* pieza con deslizador boceto / final: el pie queda siempre visible debajo */
+.lab__pieza--comparar {
+  cursor: default;
+}
+
+.lab__pieza--comparar .comparar img {
+  border-radius: 0;
+}
+
+.lab__pie--fijo {
+  position: static;
+  transform: none;
+  padding: 0.8rem 0.2rem 0;
+  background: none;
+}
+
+.lab__pieza--comparar:hover img {
+  transform: none;
+  filter: none;
+}

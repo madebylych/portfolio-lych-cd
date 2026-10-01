@@ -1,0 +1,39 @@
+.sprite {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  margin: 0;
+}
+
+/* tamaño en porcentajes: la hoja mide N veces el cuadro y cada paso
+   avanza 100% / (N - 1), así el frame encaja a cualquier ancho */
+.sprite__lienzo {
+  width: min(var(--tamano), 80vw);
+  aspect-ratio: 1;
+  background-repeat: no-repeat;
+  background-size: calc(var(--frames) * 100%) 100%;
+  image-rendering: pixelated;
+  animation: sprite-correr var(--duracion) steps(var(--frames)) infinite;
+}
+
+@keyframes sprite-correr {
+  from { background-position: 0% 0; }
+  to { background-position: calc(100% * var(--frames) / (var(--frames) - 1)) 0; }
+}
+
+.sprite figcaption {
+  display: grid;
+  gap: 0.2rem;
+  text-align: center;
+  font-size: var(--t-0);
+}
+
+.sprite figcaption span {
+  color: var(--lavanda-tenue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sprite__lienzo {
+    animation: none;
+  }
+}

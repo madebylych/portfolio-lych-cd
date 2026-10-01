@@ -1,0 +1,60 @@
+.proceso {
+  padding: 4rem var(--margen) 10rem;
+}
+
+.proceso__titulo {
+  font-size: var(--t-5);
+  margin-bottom: 3rem;
+}
+
+.proceso__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--lavanda-linea);
+}
+
+.proceso__fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) 10rem;
+  gap: 2rem;
+  align-items: baseline;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--lavanda-linea);
+}
+
+.proceso__fila h3 {
+  font-size: var(--t-3);
+}
+
+.proceso__fila p {
+  max-width: var(--ancho-texto);
+  color: var(--lavanda-tenue);
+}
+
+.proceso__etapa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  justify-self: end;
+  font-size: var(--t-0);
+}
+
+/* cada proyecto vivo late con el mismo pulso de la página */
+.proceso__latido {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--violeta-claro);
+  box-shadow: 0 0 calc(4px + var(--latido) * 14px) var(--violeta-claro);
+}
+
+@media (max-width: 760px) {
+  .proceso__fila {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  .proceso__etapa {
+    justify-self: start;
+  }
+}

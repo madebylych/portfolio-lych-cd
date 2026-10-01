@@ -1,0 +1,99 @@
+.contacto {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 8rem var(--margen) 2rem;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 115%, rgba(122, 20, 56, 0.55), transparent 70%),
+    radial-gradient(ellipse 40% 35% at 50% 110%, rgba(88, 0, 175, 0.5), transparent 70%),
+    var(--noche);
+  overflow: hidden;
+}
+
+.contacto__titulo {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.3em;
+  font-size: clamp(2.8rem, 10vw, 10rem);
+  line-height: 0.95;
+}
+
+.contacto__palabra {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.contacto__mascara {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.contacto__letra {
+  display: inline-block;
+}
+
+.contacto__correo {
+  align-self: flex-start;
+  margin-top: 3rem;
+  padding: 0.2em 0;
+  font-size: clamp(1.2rem, 3.4vw, 2.6rem);
+  font-weight: 300;
+  text-decoration: none;
+  border-bottom: 1px solid var(--lavanda-linea);
+  transition: border-color 0.4s, color 0.4s;
+  overflow-wrap: anywhere;
+}
+
+.contacto__correo:hover {
+  color: #fff;
+  border-color: var(--pulso);
+}
+
+.contacto__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2.2rem;
+}
+
+.contacto__boton {
+  padding: 0.7rem 1.3rem;
+  border: 1px solid var(--lavanda-linea);
+  border-radius: 999px;
+  background: none;
+  font-size: var(--t-0);
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.contacto__boton:hover {
+  background: var(--lavanda);
+  border-color: var(--lavanda);
+  color: var(--noche);
+}
+
+.contacto__usuario {
+  margin-top: 1rem;
+  font-size: var(--t-0);
+  color: var(--lavanda-tenue);
+}
+
+.contacto__estado {
+  min-height: 1.6em;
+  margin-top: 0.8rem;
+  font-size: var(--t-0);
+  color: var(--pulso);
+}
+
+.contacto__pie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 6rem;
+  font-size: var(--t-0);
+  color: var(--lavanda-tenue);
+}

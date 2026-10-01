@@ -1,0 +1,177 @@
+.medea__pin {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 2rem;
+  height: 100svh;
+  padding: 5rem var(--margen) 2rem;
+  background: radial-gradient(ellipse 38% 55% at 70% 55%, rgba(138, 93, 255, 0.32), rgba(60, 0, 193, 0.12) 55%, transparent 75%);
+}
+
+.medea__titulo {
+  font-size: clamp(2.6rem, min(7vw, 11vh), 7.5rem);
+  line-height: 0.95;
+}
+
+.medea__mascara {
+  display: block;
+  overflow: hidden;
+}
+
+.medea__linea-texto {
+  display: block;
+}
+
+.medea__bajada {
+  max-width: var(--ancho-texto);
+  margin: 1rem 0 clamp(1rem, 3.5vh, 2.4rem);
+  color: var(--lavanda-tenue);
+}
+
+.medea__pasos {
+  display: grid;
+  gap: 0.2rem;
+  max-width: 30rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: paso;
+}
+
+.medea__pasos li {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  padding: clamp(0.35rem, 1.2vh, 0.7rem) 0;
+  border-top: 1px solid var(--lavanda-linea);
+  counter-increment: paso;
+  opacity: 0.32;
+  transition: opacity 0.5s;
+}
+
+.medea__pasos li::before {
+  content: counter(paso);
+  grid-row: span 2;
+  font-family: var(--f-display);
+  color: var(--pulso);
+}
+
+.medea__pasos li.es-hecho {
+  opacity: 0.55;
+}
+
+.medea__pasos li.es-actual {
+  opacity: 1;
+}
+
+.medea__paso-nombre {
+  font-weight: 500;
+}
+
+.medea__paso-texto {
+  display: grid;
+  grid-template-rows: 0fr;
+  font-size: var(--t-0);
+  color: var(--lavanda-tenue);
+  overflow: hidden;
+  transition: grid-template-rows 0.5s, margin 0.5s;
+}
+
+.medea__pasos li.es-actual .medea__paso-texto {
+  grid-template-rows: 1fr;
+  margin-top: 0.25rem;
+}
+
+.medea__escenario {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+}
+
+.medea__lienzo,
+.medea__estatica {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* los frames tienen fondo transparente: el resplandor del fondo queda detrás de Medea */
+}
+
+/* detalle: comparador render / malla y miniaturas */
+.medea__detalle {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+  padding: 8rem var(--margen) 10rem;
+}
+
+
+.medea__extras {
+  display: grid;
+  gap: 2rem;
+  padding-top: 12vh;
+}
+
+.medea__miniatura {
+  display: grid;
+  gap: 0.8rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+}
+
+.medea__miniatura img {
+  width: 100%;
+  border-radius: 6px;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.8s;
+  filter: saturate(0.8);
+}
+
+.medea__miniatura:hover img {
+  transform: scale(1.025);
+  filter: saturate(1.1);
+}
+
+.medea__miniatura span {
+  font-size: var(--t-0);
+  color: var(--lavanda-tenue);
+}
+
+@media (max-width: 860px) {
+  .medea__pin {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    padding-top: 4.5rem;
+    padding-bottom: 1rem;
+  }
+  /* el modelo va arriba y ocupa el espacio que sobra */
+  .medea__escenario {
+    grid-row: 1;
+    min-height: 40svh;
+  }
+  .medea__texto {
+    grid-row: 2;
+  }
+  .medea__titulo {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+  }
+  .medea__bajada {
+    display: none;
+  }
+  /* pasos en una línea; solo el activo muestra su texto */
+  .medea__pasos li {
+    padding: 0.3rem 0;
+    font-size: var(--t-0);
+  }
+  .medea__pasos li:not(.es-actual) .medea__paso-texto {
+    display: none;
+  }
+  .medea__detalle {
+    grid-template-columns: 1fr;
+  }
+  .medea__extras {
+    padding-top: 0;
+  }
+}

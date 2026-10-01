@@ -1,0 +1,19 @@
+.manifiesto {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 115svh;
+  padding: 20vh var(--margen);
+  overflow: hidden;
+}
+
+.manifiesto__texto {
+  position: relative;
+  max-width: 21em;
+  font-family: var(--f-display);
+  font-size: clamp(1.9rem, 4.4vw, 4rem);
+  line-height: 1.18;
+  text-align: center;
+  text-wrap: balance;
+}
+

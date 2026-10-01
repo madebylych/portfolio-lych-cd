@@ -1,0 +1,116 @@
+.hero {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-items: end;
+  padding-bottom: 7.5rem;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--noche);
+}
+
+/* degradado negro para que el nombre se lea sobre la ilustración */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(0deg, #000 6%, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.35) 55%, transparent 72%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.75), transparent 24%);
+  pointer-events: none;
+}
+
+/* imagen de fondo: portada de Proyecto Sentir */
+.hero__fondo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+.hero__marca {
+  display: flex;
+  /* limitado también por el alto: en pantallas bajas no puede tapar la ilustración */
+  font-size: clamp(4.5rem, min(20vw, 30svh), 19rem);
+  line-height: 0.82;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.hero__mascara {
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.04em 0.01em;
+}
+
+.hero__letra {
+  display: inline-block;
+  opacity: 0;
+  color: var(--lavanda);
+}
+
+.hero__pie {
+  position: absolute;
+  inset: auto var(--margen) 2rem var(--margen);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.hero__bajada {
+  max-width: 24rem;
+  font-size: var(--t-0);
+  color: var(--lavanda-tenue);
+}
+
+.hero__bajar {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  border: 0;
+  background: none;
+  font-size: var(--t-0);
+  color: var(--lavanda-tenue);
+}
+
+.hero__linea {
+  position: relative;
+  width: 1px;
+  height: 48px;
+  overflow: hidden;
+  background: var(--lavanda-linea);
+}
+
+.hero__linea::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--lavanda);
+  animation: bajar 2s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+}
+
+@keyframes bajar {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100%); }
+}
+
+@media (max-width: 700px) {
+  .hero__fondo {
+    object-position: 62% 30%;
+  }
+  .hero__pie {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero__bajar {
+    display: none;
+  }
+}

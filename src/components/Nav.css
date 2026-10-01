@@ -1,0 +1,198 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.25rem var(--margen);
+  mix-blend-mode: difference;
+}
+
+.nav a,
+.nav button {
+  color: #e8dcff;
+  text-decoration: none;
+}
+
+.nav__marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--f-display);
+  font-size: var(--t-2);
+  letter-spacing: 0.32em;
+  margin-right: auto;
+}
+
+.nav__logo {
+  width: 30px;
+  height: 31px;
+  background: #e8dcff;
+  -webkit-mask: url("/media/marca/lych-lineas.png") center / contain no-repeat;
+  mask: url("/media/marca/lych-lineas.png") center / contain no-repeat;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nav__marca:hover .nav__logo {
+  transform: rotate(-8deg) scale(1.12);
+}
+
+.nav__lista {
+  display: flex;
+  gap: 1.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--t-0);
+  font-weight: 400;
+}
+
+.nav__lista a {
+  position: relative;
+}
+
+.nav__lista a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+.nav__lista a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav__indice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid rgba(232, 220, 255, 0.5);
+  border-radius: 999px;
+  background: none;
+  font-size: var(--t-0);
+  font-weight: 400;
+}
+
+.nav__latido {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e8dcff;
+  transform: scale(calc(1 + var(--latido) * 0.9));
+}
+
+@media (max-width: 820px) {
+  .nav__lista {
+    display: none;
+  }
+}
+
+/* índice plano */
+.indice {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  display: flex;
+  flex-direction: column;
+  /* pegado abajo si cabe; si no cabe, el margen automático deja hacer scroll sin esconder el primero */
+  padding: 6rem var(--margen) var(--margen);
+  background: rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(18px);
+  overflow-y: auto;
+}
+
+.indice[hidden] {
+  display: none;
+}
+
+.indice__secciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: auto;
+  margin-bottom: 2.5rem;
+}
+
+.indice__secciones a {
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--lavanda-linea);
+  border-radius: 999px;
+  font-size: var(--t-0);
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+.indice__secciones a:hover {
+  background: var(--lavanda);
+  color: #000;
+}
+
+.indice__intro {
+  max-width: var(--ancho-texto);
+  margin-bottom: 2rem;
+  color: var(--lavanda-tenue);
+}
+
+.indice__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--lavanda-linea);
+}
+
+.indice__mascara {
+  overflow: hidden;
+  border-bottom: 1px solid var(--lavanda-linea);
+}
+
+.indice__fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) 4rem;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 1.1rem 0;
+  text-decoration: none;
+  transition: color 0.3s, padding 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.indice__fila:hover,
+.indice__fila:focus-visible {
+  padding-left: 1rem;
+  color: #fff;
+}
+
+.indice__titulo {
+  font-family: var(--f-display);
+  font-size: var(--t-4);
+  line-height: 1.1;
+}
+
+.indice__tipo {
+  color: var(--lavanda-tenue);
+  font-size: var(--t-0);
+}
+
+.indice__año {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--lavanda-tenue);
+}
+
+@media (max-width: 700px) {
+  .indice__fila {
+    grid-template-columns: 1fr auto;
+  }
+  .indice__tipo {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}

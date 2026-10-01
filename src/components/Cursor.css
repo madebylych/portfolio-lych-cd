@@ -1,0 +1,59 @@
+.con-cursor,
+.con-cursor a,
+.con-cursor button {
+  cursor: none;
+}
+
+.cursor__punto,
+.cursor__anillo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 95;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.cursor__punto {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--lavanda);
+}
+
+.cursor__anillo {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border: 1px solid rgba(220, 203, 255, calc(0.35 + var(--latido) * 0.5));
+  transition: width 0.35s, height 0.35s, margin 0.35s, background 0.35s, border-color 0.35s;
+}
+
+.cursor__anillo span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--noche);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cursor__anillo--sobre {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+}
+
+.cursor__anillo--texto {
+  width: 84px;
+  height: 84px;
+  margin: -42px 0 0 -42px;
+  background: var(--lavanda);
+  border-color: var(--lavanda);
+}
+
+.cursor__anillo--texto span {
+  opacity: 1;
+}
