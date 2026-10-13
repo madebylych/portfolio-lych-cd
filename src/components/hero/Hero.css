@@ -130,6 +130,17 @@
   font-size: max(calc(var(--u) * 16), 0.85rem);
 }
 
+/* lo que es Emily, debajo de su nombre */
+.hero__rol {
+  /* ancho limitado para que no llegue al arco: queda en dos líneas */
+  max-width: calc(var(--u) * 340);
+  font-family: var(--f-display);
+  font-size: calc(var(--u) * 40);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .hero__disciplinas {
   display: grid;
   gap: calc(var(--u) * 9);
@@ -252,6 +263,10 @@
   }
   .hero__nombre {
     font-size: 0.95rem;
+  }
+  .hero__rol {
+    max-width: none;
+    font-size: 1.5rem;
   }
   .hero__disciplinas {
     grid-template-columns: 1fr 1fr;

@@ -21,7 +21,7 @@ export const TEXTOS = {
     hero: {
       portafolio: "Portafolio 2026",
       ciudad: "Bogotá, Colombia",
-      disciplinas: ["Ilustración", "3D", "Animación", "Diseño digital"],
+      rol: "Creadora digital",
       verProyectos: "Ver proyectos",
       contacto: "Contacto",
       vertical: "LYCH ✦ Ilustración ✦ 3D ✦ Animación ✦ Diseño",
@@ -29,8 +29,9 @@ export const TEXTOS = {
     },
     mani: {
       etiqueta: "Manifiesto",
-      intro: "El lugar donde junto mi",
-      lineas: ["Ilustración,", "3D, animación,", "Diseño y", "Storytelling."],
+      // "Lo que hago, lo que aprendo y lo que sigo explorando." (sin línea de introducción)
+      intro: "",
+      lineas: ["Lo que hago,", "lo que aprendo", "y lo que sigo", "explorando."],
       vertical: "LYCH ✦ Manifiesto ✦ 2026",
     },
     obras: {
@@ -139,7 +140,7 @@ export const TEXTOS = {
     hero: {
       portafolio: "Portfolio 2026",
       ciudad: "Bogotá, Colombia",
-      disciplinas: ["Illustration", "3D", "Animation", "Digital design"],
+      rol: "Digital creator",
       verProyectos: "View projects",
       contacto: "Contact",
       vertical: "LYCH ✦ Illustration ✦ 3D ✦ Animation ✦ Design",
@@ -147,8 +148,8 @@ export const TEXTOS = {
     },
     mani: {
       etiqueta: "Manifesto",
-      intro: "The place where I bring together my",
-      lineas: ["Illustration,", "3D, animation,", "Design and", "Storytelling."],
+      intro: "",
+      lineas: ["What I make,", "what I learn", "and what I keep", "exploring."],
       vertical: "LYCH ✦ Manifesto ✦ 2026",
     },
     obras: {

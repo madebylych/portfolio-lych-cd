@@ -29,7 +29,7 @@ export default function Manifiesto() {
       caja.style.setProperty("--tam", `${tam.toFixed(1)}px`);
 
       // justificado: cada renglón se estira hasta el ancho del más largo repartiendo el aire entre sus letras
-      const renglones = [caja.querySelector(".mani__intro"), ...lineas];
+      const renglones = [caja.querySelector(".mani__intro"), ...lineas].filter(Boolean);
       renglones.forEach((r) => r.querySelectorAll(".mascara").forEach((m) => (m.style.marginRight = "")));
       const objetivo = Math.max(...lineas.map((l) => l.scrollWidth));
       renglones.forEach((r) => {
@@ -53,7 +53,7 @@ export default function Manifiesto() {
         scrollTrigger: { trigger: raiz.current, start: "top 60%", end: "bottom bottom", scrub: 1 },
       });
 
-      tl.from(".mani__intro .mani__letra", { yPercent: 120, rotate: 12, opacity: 0, stagger: 0.015, duration: 0.6 });
+      if (INTRO) tl.from(".mani__intro .mani__letra", { yPercent: 120, rotate: 12, opacity: 0, stagger: 0.015, duration: 0.6 });
 
       gsap.utils.toArray(".mani__linea").forEach((linea, i) => {
         const desde = i % 2 ? 1 : -1; // una línea entra por la izquierda y la siguiente por la derecha
@@ -69,7 +69,7 @@ export default function Manifiesto() {
   }, []);
 
   return (
-    <section id="manifiesto" ref={raiz} className="mani" aria-label={`${INTRO} ${LINEAS.map((l) => l.texto).join(" ")}`}>
+    <section id="manifiesto" ref={raiz} className="mani" aria-label={[INTRO, ...LINEAS.map((l) => l.texto)].filter(Boolean).join(" ")}>
       <div className="mani__fijo">
         <Fondo brillos={[["violeta", 500, 260, 900, 600, 0.28, 240], ["azul", -250, 600, 700, 500, 0.3, 220]]} />
         <p className="mani__etiqueta" aria-hidden="true">
@@ -78,11 +78,13 @@ export default function Manifiesto() {
         </p>
 
         <div ref={texto} className="mani__texto" aria-hidden="true">
-          <p className="mani__intro">
-            <Letras texto={INTRO} clase="mani__letra" />
-          </p>
+          {INTRO && (
+            <p className="mani__intro">
+              <Letras texto={INTRO} clase="mani__letra" />
+            </p>
+          )}
           {LINEAS.map((l, i) => (
-            <p key={l.texto} className={`mani__linea ${l.estilo.includes("contorno") ? "contorno" : ""} ${l.estilo.includes("violeta") ? "mani__linea--violeta" : ""}`}>
+            <p key={l.texto} className={`mani__linea mani__linea--${i + 1} ${l.estilo.includes("contorno") ? "contorno" : ""} ${l.estilo.includes("violeta") ? "mani__linea--violeta" : ""}`}>
               <Letras texto={l.texto} clase="mani__letra" />
               <span className="mani__sticker">{String(i + 1).padStart(2, "0")}</span>
             </p>

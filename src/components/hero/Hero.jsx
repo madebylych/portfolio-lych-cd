@@ -83,14 +83,7 @@ export default function Hero({ entrar }) {
 
       <div className="hero__info">
         <p className="hero__nombre hero__entra">Emily Chisaba</p>
-        <ol className="hero__disciplinas">
-          {t.hero.disciplinas.map((d, i) => (
-            <li key={d} className="hero__entra">
-              <span className="hud">{String(i + 1).padStart(2, "0")}</span>
-              {d}
-            </li>
-          ))}
-        </ol>
+        <p className="hero__rol hero__entra">{t.hero.rol}</p>
       </div>
 
       <div className="hero__acciones">
