@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap, reduceMotion } from "../lib/motion";
 import { CONTACTO } from "../data/contenido";
+import { useT } from "../lib/idioma";
 import { Cinta, Destello, Fondo } from "./Adornos";
 import "./Contacto.css";
 
 const letras = (palabra, clase) =>
   palabra.split("").map((l, i) => (
     <span key={i} className="contacto__mascara">
-      <span className={`contacto__letra ${clase}`}>{l}</span>
+      <span className={`contacto__letra ${clase}`}>{l === " " ? "\u00a0" : l}</span>
     </span>
   ));
 
 export default function Contacto() {
   const raiz = useRef(null);
+  const t = useT();
   const iman = useRef(null);
   const [copiado, setCopiado] = useState(false);
 
@@ -73,13 +75,13 @@ export default function Contacto() {
 
       <Fondo brillos={[["violeta", 1000, 100, 500, 400, 0.25, 200]]} />
 
-      <h2 id="contacto-titulo" className="contacto__titulo">
-        <span className="solo-lector">Creemos juntos</span>
+      <h2 id="contacto-titulo" className="contacto__titulo" style={{ "--largo": Math.max(...t.contacto.titulo.map((l) => l.length)) }}>
+        <span className="solo-lector">{t.contacto.titulo.join(" ")}</span>
         <span className="contacto__palabra contacto__creemos" aria-hidden="true">
-          {letras("Creemos", "contacto__letra--1")}
+          {letras(t.contacto.titulo[0], "contacto__letra--1")}
         </span>
         <span className="contacto__palabra contacto__juntos contorno" aria-hidden="true">
-          {letras("Juntos", "contacto__letra--2")}
+          {letras(t.contacto.titulo[1], "contacto__letra--2")}
         </span>
         <Destello tam={44} className="contacto__destello-1" />
         <Destello tam={20} violeta className="contacto__destello-2" />
@@ -93,7 +95,7 @@ export default function Contacto() {
 
       <div className="contacto__acciones contacto__entra">
         <button className="contacto__boton" onClick={copiar}>
-          {copiado ? "Correo copiado" : "Copiar correo"}
+          {copiado ? t.contacto.copiado : t.contacto.copiar}
         </button>
         {CONTACTO.redes.map((r) => (
           <a key={r.nombre} className="contacto__boton" href={r.url} target="_blank" rel="noreferrer">
@@ -101,14 +103,14 @@ export default function Contacto() {
           </a>
         ))}
       </div>
-      <p className="contacto__usuario hud hud--tenue contacto__entra">{CONTACTO.usuario} en todas las redes</p>
+      <p className="contacto__usuario hud hud--tenue contacto__entra">{CONTACTO.usuario} {t.contacto.redes}</p>
       <p className="contacto__estado" role="status">
-        {copiado ? "El correo está en tu portapapeles." : ""}
+        {copiado ? t.contacto.estado : ""}
       </p>
 
       <div className="contacto__pie hud hud--tenue">
         <span>Emily Chisaba, {new Date().getFullYear()}</span>
-        <span>Hecho en Bogotá</span>
+        <span>{t.contacto.hecho}</span>
       </div>
     </footer>
   );

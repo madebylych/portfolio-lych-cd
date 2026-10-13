@@ -1,13 +1,12 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { gsap, irA, reduceMotion, ScrollTrigger } from "../lib/motion";
-import { GRUPOS_LAB, LABORATORIO } from "../data/contenido";
+import { useContenido, useT } from "../lib/idioma";
 import { useLightbox } from "./Lightbox";
 import { Destello, Fondo } from "./Adornos";
 import Comparador from "./Comparador";
 import "./Laboratorio.css";
 
 const dos = (n) => String(n).padStart(2, "0");
-const INTRO = "Lo que no cabe en un caso de estudio: personajes propios, fan art, estudios y fotografía.";
 
 function useMovil() {
   const consulta = "(max-width: 860px)";
@@ -30,11 +29,31 @@ export default function Laboratorio() {
   const raiz = useRef(null);
   const titulo = useRef(null);
   const abrir = useLightbox();
+  const t = useT();
+  const { GRUPOS_LAB, LABORATORIO } = useContenido();
+  const gigante = useRef(null);
   const movil = useMovil();
   const [grupo, setGrupo] = useState("Todo");
   const [idx, setIdx] = useState(0);
-  const piezas = useMemo(() => (grupo === "Todo" ? LABORATORIO : LABORATORIO.filter((p) => p.grupos.includes(grupo))), [grupo]);
+  const piezas = useMemo(() => (grupo === "Todo" ? LABORATORIO : LABORATORIO.filter((p) => p.grupos.includes(grupo))), [grupo, LABORATORIO]);
   const n = piezas.length;
+
+  // la palabra de fondo va de borde a borde de la pantalla, en cualquier idioma
+  useLayoutEffect(() => {
+    const el = gigante.current;
+    const ajustar = () => {
+      el.style.fontSize = "100px";
+      const r = document.createRange();
+      r.selectNodeContents(el);
+      // sin el espaciado que queda después de la última letra (0.04em)
+      const ancho = r.getBoundingClientRect().width - 4;
+      el.style.fontSize = `${(100 * window.innerWidth) / ancho}px`;
+    };
+    ajustar();
+    document.fonts?.ready.then(ajustar);
+    window.addEventListener("resize", ajustar);
+    return () => window.removeEventListener("resize", ajustar);
+  }, []);
   const p = piezas[Math.min(idx, n - 1)];
 
   // escritorio: el avance del scroll dentro de la sección elige la carta
@@ -99,8 +118,8 @@ export default function Laboratorio() {
     <section id="laboratorio" ref={raiz} className="lab" style={{ "--n": n }} aria-labelledby="lab-titulo">
       <div className="lab__fijo">
         <Fondo brillos={[["azul", -150, 200, 900, 800, 0.45, 240], ["violeta", 900, 420, 600, 500, 0.25, 220]]} />
-        <h2 id="lab-titulo" className="lab__gigante contorno">
-          Laboratorio
+        <h2 id="lab-titulo" ref={gigante} className="lab__gigante contorno">
+          {t.lab.titulo}
         </h2>
         <span className="lab__cuenta hud">({dos(LABORATORIO.length)})</span>
 
@@ -133,9 +152,9 @@ export default function Laboratorio() {
                     <Comparador
                       debajo={pz.boceto}
                       encima={pz.src}
-                      altDebajo={`${pz.titulo}, boceto`}
-                      altEncima={`${pz.titulo}, ilustración final`}
-                      etiqueta={`Comparar boceto y final de ${pz.titulo}`}
+                      altDebajo={t.comparar.boceto(pz.titulo)}
+                      altEncima={t.comparar.final(pz.titulo)}
+                      etiqueta={t.comparar.etiqueta(pz.titulo)}
                       inicio={42}
                       cubrir
                     />
@@ -145,7 +164,7 @@ export default function Laboratorio() {
                 </div>
                 <footer className="lab__pie">
                   <span>{pz.titulo}</span>
-                  <span className="hud">N.º {dos(LABORATORIO.indexOf(pz) + 1)}</span>
+                  <span className="hud">{t.n} {dos(LABORATORIO.indexOf(pz) + 1)}</span>
                   <span className="lab__pie-nota">{pz.nota}</span>
                 </footer>
               </article>
@@ -154,16 +173,16 @@ export default function Laboratorio() {
         </div>
 
         <div className="lab__panel">
-          <div className="lab__filtros" role="group" aria-label="Filtrar el laboratorio">
+          <div className="lab__filtros" role="group" aria-label={t.lab.filtrar}>
             {GRUPOS_LAB.map((g) => (
               <button key={g} className={`lab__filtro ${g === grupo ? "es-activo" : ""}`} aria-pressed={g === grupo} onClick={() => filtrar(g)}>
-                {g}
+                {t.lab.grupos[g] ?? g}
               </button>
             ))}
           </div>
 
           <p className="lab__contador hud">
-            Pieza <span>{dos(Math.min(idx, n - 1) + 1)} / {dos(n)}</span>
+            {t.lab.pieza} <span>{dos(Math.min(idx, n - 1) + 1)} / {dos(n)}</span>
           </p>
           <div className="lab__progreso" aria-hidden="true">
             {piezas.map((pz, k) => (
@@ -184,31 +203,31 @@ export default function Laboratorio() {
           </h3>
           <p className="lab__nota lab__dato">{p.nota}</p>
           <p className="lab__texto lab__dato">
-            {INTRO}
-            {p.boceto && " Arrastra sobre la ilustración para ver el boceto debajo."}
+            {t.lab.intro}
+            {p.boceto && t.lab.boceto}
           </p>
 
           <div className="lab__acciones lab__dato">
             <button className="boton" onClick={() => abrir(p.src, `${p.titulo}. ${p.nota}`)} data-cursor="ver">
-              Ver en grande
+              {t.lab.verGrande}
             </button>
             {movil ? (
               <span className="lab__flechas">
-                <button className="lab__flecha" onClick={() => setIdx((i) => Math.max(0, i - 1))} disabled={idx === 0} aria-label="Pieza anterior">
+                <button className="lab__flecha" onClick={() => setIdx((i) => Math.max(0, i - 1))} disabled={idx === 0} aria-label={t.lab.anterior}>
                   ←
                 </button>
-                <button className="lab__flecha" onClick={() => setIdx((i) => Math.min(n - 1, i + 1))} disabled={idx >= n - 1} aria-label="Pieza siguiente">
+                <button className="lab__flecha" onClick={() => setIdx((i) => Math.min(n - 1, i + 1))} disabled={idx >= n - 1} aria-label={t.lab.siguiente}>
                   →
                 </button>
               </span>
             ) : (
-              <span className="hud hud--tenue lab__pista">Desliza para pasar a la siguiente pieza&nbsp; ↓</span>
+              <span className="hud hud--tenue lab__pista">{t.lab.pista}</span>
             )}
           </div>
 
           <div className="lab__miniaturas">
             {piezas.map((pz, k) => (
-              <button key={pz.src} className={`lab__mini ${k === idx ? "es-activo" : ""}`} onClick={() => irACarta(k)} aria-label={`Ver ${pz.titulo}`}>
+              <button key={pz.src} className={`lab__mini ${k === idx ? "es-activo" : ""}`} onClick={() => irACarta(k)} aria-label={t.lab.ver(pz.titulo)}>
                 <img src={pz.src} alt="" loading="lazy" />
               </button>
             ))}
@@ -218,7 +237,7 @@ export default function Laboratorio() {
         <Destello tam={24} style={{ left: "47%", top: "40%" }} />
         <Destello tam={16} violeta style={{ left: "4%", bottom: "6%" }} />
         <p className="vertical lab__vertical" aria-hidden="true">
-          LYCH ✦ Laboratorio ✦ {dos(LABORATORIO.length)} piezas
+          LYCH ✦ {t.lab.titulo} ✦ {dos(LABORATORIO.length)} {t.lab.piezas}
         </p>
       </div>
     </section>

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap, reduceMotion } from "../lib/motion";
 import { alClicEnlace, url } from "../lib/ruta";
-import { OBRAS } from "../data/contenido";
+import { useContenido, useT } from "../lib/idioma";
 import { useLightbox } from "../components/Lightbox";
 import { Cinta, Destello, Fondo } from "../components/Adornos";
 import Medea from "../components/Medea";
@@ -21,12 +21,12 @@ function Letras({ texto }) {
 }
 
 /* imágenes en marcos inclinados que abren el visor */
-function Galeria({ imagenes, titulo, abrir }) {
+function Galeria({ imagenes, titulo, abrir, t }) {
   const sola = imagenes.length === 1;
   return (
     <ul className={`proyecto__galeria ${sola ? "proyecto__galeria--sola" : ""}`}>
       {imagenes.map(normal).map(({ src, pie }, k) => {
-        const texto = pie ?? `${titulo}, imagen ${k + 1}`;
+        const texto = pie ?? t.proyecto.imagen(titulo, k + 1);
         return (
           <li key={src} className="proyecto__pieza proyecto__marco" style={{ "--g": `${k % 2 ? 1.2 : -1.2}deg` }}>
             <button onClick={() => abrir(src, texto)} data-cursor="ver">
@@ -40,7 +40,7 @@ function Galeria({ imagenes, titulo, abrir }) {
   );
 }
 
-function Seccion({ s, o, abrir }) {
+function Seccion({ s, o, abrir, t }) {
   switch (s.tipo) {
     case "sprites":
       return (
@@ -52,13 +52,13 @@ function Seccion({ s, o, abrir }) {
               </div>
             ))}
           </div>
-          <h3 className="proyecto__subtitulo proyecto__subtitulo--menor">Hojas de sprites</h3>
+          <h3 className="proyecto__subtitulo proyecto__subtitulo--menor">{t.proyecto.hojas}</h3>
           {o.sprites.map((sp) => (
             <figure key={sp.src} className="proyecto__hoja pixel proyecto__pieza">
               {/* misma escala para todas las hojas: 1 px del sprite = 1 px de pantalla */}
-              <img src={sp.src} alt={`Hoja de sprites: ${sp.titulo}, ${sp.frames} frames`} loading="lazy" style={{ width: sp.frames * sp.lado }} />
+              <img src={sp.src} alt={t.proyecto.hojaAlt(sp.titulo, sp.frames)} loading="lazy" style={{ width: sp.frames * sp.lado }} />
               <figcaption>
-                {sp.titulo}: {sp.frames} frames de {sp.lado} × {sp.lado} px
+                {t.proyecto.hojaPie(sp.titulo, sp.frames, sp.lado)}
               </figcaption>
             </figure>
           ))}
@@ -74,9 +74,9 @@ function Seccion({ s, o, abrir }) {
                 <Comparador
                   debajo={p.boceto}
                   encima={p.final}
-                  altDebajo={`${p.titulo}, boceto`}
-                  altEncima={`${p.titulo}, ilustración final`}
-                  etiqueta={`Comparar boceto y final de ${p.titulo}`}
+                  altDebajo={t.comparar.boceto(p.titulo)}
+                  altEncima={t.comparar.final(p.titulo)}
+                  etiqueta={t.comparar.etiqueta(p.titulo)}
                   pie={p.titulo}
                   inicio={35}
                 />
@@ -92,18 +92,18 @@ function Seccion({ s, o, abrir }) {
             <Comparador
               debajo={s.boceto}
               encima={s.final}
-              altDebajo={`${o.titulo}, boceto`}
-              altEncima={`${o.titulo}, versión final`}
-              etiqueta={`Comparar boceto y final de ${o.titulo}`}
+              altDebajo={t.comparar.boceto(o.titulo)}
+              altEncima={t.comparar.version(o.titulo)}
+              etiqueta={t.comparar.etiqueta(o.titulo)}
               inicio={s.inicio ?? 45}
             />
             <p className="hud proyecto__pista">{s.ayuda}</p>
           </div>
-          {s.luego && <Galeria imagenes={s.luego} titulo={o.titulo} abrir={abrir} />}
+          {s.luego && <Galeria imagenes={s.luego} titulo={o.titulo} abrir={abrir} t={t} />}
         </>
       );
     case "galeria":
-      return <Galeria imagenes={s.imagenes} titulo={o.titulo} abrir={abrir} />;
+      return <Galeria imagenes={s.imagenes} titulo={o.titulo} abrir={abrir} t={t} />;
     case "referencias":
       return (
         // obras ajenas: aparte y con crédito, para no confundirlas con el trabajo propio
@@ -118,7 +118,7 @@ function Seccion({ s, o, abrir }) {
                 {r.texto}
                 {r.enlace && (
                   <a href={r.enlace} target="_blank" rel="noreferrer">
-                    Ver el original ↗<span className="solo-lector"> (se abre en otra pestaña)</span>
+                    {t.proyecto.verOriginal}<span className="solo-lector">{t.proyecto.nuevaPestana}</span>
                   </a>
                 )}
               </figcaption>
@@ -134,6 +134,8 @@ function Seccion({ s, o, abrir }) {
 export default function Proyecto({ id }) {
   const raiz = useRef(null);
   const abrir = useLightbox();
+  const t = useT();
+  const { OBRAS } = useContenido();
   const i = OBRAS.findIndex((o) => o.id === id);
   const o = OBRAS[i];
   const siguiente = OBRAS[(i + 1) % OBRAS.length];
@@ -170,10 +172,10 @@ export default function Proyecto({ id }) {
   if (!o) {
     return (
       <main className="proyecto proyecto--vacio">
-        <h1>Este proyecto no existe</h1>
-        <p>Puede que el enlace esté mal escrito. Los proyectos están en el inicio.</p>
+        <h1>{t.proyecto.noExiste}</h1>
+        <p>{t.proyecto.noExisteTexto}</p>
         <a href={url("/#obras")} onClick={(e) => alClicEnlace(e, "/#obras")}>
-          Ir a los proyectos
+          {t.proyecto.irProyectos}
         </a>
       </main>
     );
@@ -190,10 +192,10 @@ export default function Proyecto({ id }) {
         <Fondo brillos={[["azul", -250, -150, 900, 700, 0.42, 230], ["violeta", 760, 300, 600, 600, 0.3, 200]]} />
         <div className="proyecto__izq">
           <a className="proyecto__volver hud hud--tenue" href={url("/#obras")} onClick={(e) => alClicEnlace(e, "/#obras")}>
-            ← Volver a proyectos
+            {t.proyecto.volver}
           </a>
           <p className="hud proyecto__n">
-            N.º {dos(i + 1)} / {dos(OBRAS.length)}
+            {t.n} {dos(i + 1)} / {dos(OBRAS.length)}
           </p>
           <h1 className="proyecto__titulo" aria-label={o.titulo}>
             {lineas.map((l, k) => (
@@ -204,16 +206,16 @@ export default function Proyecto({ id }) {
           </h1>
           <dl className="proyecto__meta">
             <div>
-              <dt className="hud">Qué es</dt>
+              <dt className="hud">{t.proyecto.quees}</dt>
               <dd>{o.tipo}</dd>
             </div>
             <div>
-              <dt className="hud">Qué hice</dt>
+              <dt className="hud">{t.proyecto.quehice}</dt>
               <dd>{o.rol}</dd>
             </div>
             {o.año && (
               <div>
-                <dt className="hud">Año</dt>
+                <dt className="hud">{t.proyecto.año}</dt>
                 <dd>{o.año}</dd>
               </div>
             )}
@@ -222,7 +224,7 @@ export default function Proyecto({ id }) {
             <p className="proyecto__enlaces">
               <a className="boton" href={o.enlace.url} target="_blank" rel="noreferrer" data-cursor="abrir">
                 {o.enlace.texto}
-                <span className="solo-lector"> (se abre en otra pestaña)</span>
+                <span className="solo-lector">{t.proyecto.nuevaPestana}</span>
               </a>
               <a className="hud proyecto__url" href={o.enlace.url} target="_blank" rel="noreferrer">
                 {o.enlace.url.replace(/^https:\/\//, "").replace(/\/$/, "")}&nbsp; ↗
@@ -237,7 +239,7 @@ export default function Proyecto({ id }) {
           </span>
           <span className="proyecto__marco-arco" aria-hidden="true" />
           <button className={`proyecto__arco ${o.pixelArt ? "pixel" : ""}`} onClick={() => abrir(o.portada, o.titulo)} data-cursor="ver">
-            <img src={o.tarjeta ?? o.portada} alt={`${o.titulo}: imagen principal`} />
+            <img src={o.tarjeta ?? o.portada} alt={t.proyecto.imagenPrincipal(o.titulo)} />
           </button>
           <span className="sticker proyecto__sticker">{o.etiqueta}</span>
           <Destello tam={26} style={{ left: "-6%", top: "2%" }} />
@@ -254,9 +256,9 @@ export default function Proyecto({ id }) {
         </div>
       </header>
 
-      <section className="proyecto__sobre" aria-label="Sobre el proyecto">
+      <section className="proyecto__sobre" aria-label={t.proyecto.sobre}>
         <Fondo brillos={[["violeta", 900, 100, 600, 400, 0.2, 200]]} />
-        <p className="hud proyecto__sobre-etiqueta">Sobre el proyecto</p>
+        <p className="hud proyecto__sobre-etiqueta">{t.proyecto.sobre}</p>
         <p className="proyecto__sobre-texto">{o.texto}</p>
         <Destello tam={22} style={{ left: "8%", bottom: "20%" }} />
       </section>
@@ -265,8 +267,8 @@ export default function Proyecto({ id }) {
         s.tipo === "medea" ? (
           <section key="medea" className="proyecto__seccion proyecto__seccion--medea">
             <header className="proyecto__seccion-titulo">
-              <span className="hud">N.º 01</span>
-              <h2>Proceso</h2>
+              <span className="hud">{t.n} 01</span>
+              <h2>{t.proyecto.proceso}</h2>
             </header>
             <Medea enPagina />
           </section>
@@ -274,10 +276,10 @@ export default function Proyecto({ id }) {
           <section key={s.titulo} className="proyecto__seccion" aria-labelledby={`sec-${k}`}>
             <Fondo brillos={[k % 2 ? ["violeta", 900, 200, 800, 600, 0.28, 230] : ["azul", -200, 200, 800, 600, 0.28, 230]]} />
             <header className="proyecto__seccion-titulo">
-              <span className="hud">N.º {dos(k + 1)}</span>
+              <span className="hud">{t.n} {dos(k + 1)}</span>
               <h2 id={`sec-${k}`}>{s.titulo}</h2>
             </header>
-            <Seccion s={s} o={o} abrir={abrir} />
+            <Seccion s={s} o={o} abrir={abrir} t={t} />
           </section>
         )
       )}
@@ -285,9 +287,9 @@ export default function Proyecto({ id }) {
       <a className="proyecto__siguiente" href={url(destinoSig)} onClick={(e) => alClicEnlace(e, destinoSig)} data-cursor="siguiente">
         <img className="proyecto__sig-fondo" src={siguiente.portada} alt="" loading="lazy" />
         <span className="proyecto__sig-velo" aria-hidden="true" />
-        <span className="hud">Siguiente proyecto</span>
+        <span className="hud">{t.proyecto.siguiente}</span>
         <span className="hud hud--tenue">
-          N.º {dos(((i + 1) % OBRAS.length) + 1)} / {dos(OBRAS.length)}
+          {t.n} {dos(((i + 1) % OBRAS.length) + 1)} / {dos(OBRAS.length)}
         </span>
         <span className="proyecto__sig-titulo">
           {siguiente.titulo} <span className="proyecto__sig-flecha">→</span>

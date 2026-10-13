@@ -1,15 +1,16 @@
 import { useEffect, useRef } from "react";
 import { gsap, reduceMotion, irA } from "../../lib/motion";
 import { Cinta, Destello, Fondo } from "../Adornos";
+import { useT } from "../../lib/idioma";
 import "./Hero.css";
 
 const LETRAS = ["L", "Y", "C", "H"];
-const DISCIPLINAS = ["Ilustración", "3D", "Animación", "Diseño digital"];
 const IMAGEN_HERO = import.meta.env.BASE_URL + "media/hero/sentir.webp"; // portada de Proyecto Sentir
 
 /* Hero v2: la portada de SENTIR en un arco, LYCH cruzando su borde y etiquetas tipo visor. */
 export default function Hero({ entrar }) {
   const raiz = useRef(null);
+  const t = useT();
 
   useEffect(() => {
     if (!entrar) return;
@@ -45,11 +46,11 @@ export default function Hero({ entrar }) {
 
       <div className="hero__hud">
         <p className="hero__entra">
-          <span className="hud">N.º 01</span>
-          <span className="hud hud--tenue">Portafolio 2026</span>
+          <span className="hud">{t.n} 01</span>
+          <span className="hud hud--tenue">{t.hero.portafolio}</span>
         </p>
         <p className="hero__entra hero__hud-der">
-          <span className="hud hud--tenue">Bogotá, Colombia</span>
+          <span className="hud hud--tenue">{t.hero.ciudad}</span>
           <span className="hud">4.71° N&nbsp; 74.07° W</span>
         </p>
       </div>
@@ -83,7 +84,7 @@ export default function Hero({ entrar }) {
       <div className="hero__info">
         <p className="hero__nombre hero__entra">Emily Chisaba</p>
         <ol className="hero__disciplinas">
-          {DISCIPLINAS.map((d, i) => (
+          {t.hero.disciplinas.map((d, i) => (
             <li key={d} className="hero__entra">
               <span className="hud">{String(i + 1).padStart(2, "0")}</span>
               {d}
@@ -94,19 +95,19 @@ export default function Hero({ entrar }) {
 
       <div className="hero__acciones">
         <button className="boton hero__entra" onClick={() => irA("#obras")} data-cursor="baja">
-          Ver proyectos
+          {t.hero.verProyectos}
         </button>
         <button className="boton boton--suave hero__entra" onClick={() => irA("#contacto")}>
-          Contacto
+          {t.hero.contacto}
         </button>
       </div>
 
       <p className="vertical hero__vertical" aria-hidden="true">
-        LYCH ✦ Ilustración ✦ 3D ✦ Animación ✦ Diseño
+        {t.hero.vertical}
       </p>
 
       <div className="hero__cintas">
-        <Cinta palabras={["Ilustración", "3D", "Animación", "Diseño", "Storytelling"]} color="azul" velocidad={44} />
+        <Cinta palabras={t.hero.cinta} color="azul" velocidad={44} />
         <Cinta palabras={["Emily Chisaba", "LYCH"]} color="violeta" reversa velocidad={36} />
       </div>
     </section>

@@ -1,19 +1,17 @@
 import { useEffect, useRef } from "react";
 import { gsap, reduceMotion, ScrollTrigger } from "../lib/motion";
 import { Destello, Letras, Fondo } from "./Adornos";
+import { useT } from "../lib/idioma";
 import "./Manifiesto.css";
 
-/* Frase completa: "El lugar donde junto mi ilustración, 3D, animación, diseño y storytelling." */
-const INTRO = "El lugar donde junto mi";
-const LINEAS = [
-  { texto: "Ilustración,", estilo: "contorno" },
-  { texto: "3D, animación,", estilo: "lleno" },
-  { texto: "Diseño y", estilo: "contorno violeta" },
-  { texto: "Storytelling.", estilo: "lleno violeta" },
-];
+/* estilo de cada línea de la frase; el texto viene de textos.js */
+const ESTILOS = ["contorno", "lleno", "contorno violeta", "lleno violeta"];
 
 export default function Manifiesto() {
   const raiz = useRef(null);
+  const t = useT();
+  const INTRO = t.mani.intro;
+  const LINEAS = t.mani.lineas.map((texto, i) => ({ texto, estilo: ESTILOS[i] }));
   const texto = useRef(null);
 
   // todas las líneas comparten tamaño: el que hace caber la más larga en el ancho disponible
@@ -75,8 +73,8 @@ export default function Manifiesto() {
       <div className="mani__fijo">
         <Fondo brillos={[["violeta", 500, 260, 900, 600, 0.28, 240], ["azul", -250, 600, 700, 500, 0.3, 220]]} />
         <p className="mani__etiqueta" aria-hidden="true">
-          <span className="hud">Manifiesto</span>
-          <span className="hud hud--tenue">( N.º 00 )</span>
+          <span className="hud">{t.mani.etiqueta}</span>
+          <span className="hud hud--tenue">( {t.n} 00 )</span>
         </p>
 
         <div ref={texto} className="mani__texto" aria-hidden="true">
@@ -95,7 +93,7 @@ export default function Manifiesto() {
         <Destello tam={16} violeta style={{ left: "12%", top: "44%" }} className="mani__destello-lado" />
         <Destello tam={20} style={{ left: "6%", bottom: "12%" }} />
         <p className="vertical mani__vertical" aria-hidden="true">
-          LYCH ✦ Manifiesto ✦ 2026
+          {t.mani.vertical}
         </p>
       </div>
     </section>

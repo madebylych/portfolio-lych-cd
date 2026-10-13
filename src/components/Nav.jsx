@@ -1,21 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap, irA, pausarScroll, reduceMotion } from "../lib/motion";
 import { navegar, url, useRuta, leerRuta } from "../lib/ruta";
-import { OBRAS } from "../data/contenido";
+import { cambiarIdioma, useContenido, useIdioma, useT } from "../lib/idioma";
 import "./Nav.css";
 
-const SECCIONES = [
-  { id: "#obras", nombre: "Proyectos" },
-  { id: "#laboratorio", nombre: "Laboratorio" },
-  { id: "#sobre", nombre: "Sobre mí" },
-  { id: "#contacto", nombre: "Contacto" },
-];
+const ANCLAS = ["#obras", "#laboratorio", "#sobre", "#contacto"];
 
 const dos = (n) => String(n).padStart(2, "0");
 
 /* Nav tipo visor (HUD) y "Ver todo": el índice de proyectos en texto, sin imágenes. */
 export default function Nav() {
   const [abierto, setAbierto] = useState(false);
+  const t = useT();
+  const idioma = useIdioma();
+  const { OBRAS } = useContenido();
+  const SECCIONES = ANCLAS.map((id, i) => ({ id, nombre: t.nav.secciones[i] }));
   const enInicio = leerRuta(useRuta()).pagina === "inicio";
   const panel = useRef(null);
   const boton = useRef(null);
@@ -60,14 +59,14 @@ export default function Nav() {
     <>
       <header className={`nav ${abierto ? "nav--abierto" : ""}`}>
         <span className="esquinas nav__esquinas" aria-hidden="true" />
-        <a href={url("/")} className="nav__marca" onClick={(e) => ir(e, "#inicio")} aria-label="LYCH, volver al inicio">
+        <a href={url("/")} className="nav__marca" onClick={(e) => ir(e, "#inicio")} aria-label={t.nav.marca}>
           <span className="nav__logo" aria-hidden="true" />
           <span aria-hidden="true">LYCH</span>
           <span className="nav__etiqueta hud" aria-hidden="true">
-            {abierto ? "[ Ver todo ]" : "[ Portafolio 2026 ]"}
+            {abierto ? t.nav.verTodoEtiqueta : t.nav.portafolio}
           </span>
         </a>
-        <nav aria-label="Secciones">
+        <nav aria-label={t.nav.seccionesAria}>
           <ul className="nav__lista">
             {SECCIONES.map((s, i) => (
               <li key={s.id}>
@@ -82,6 +81,12 @@ export default function Nav() {
         <span className="nav__coordenadas hud hud--tenue" aria-hidden="true">
           Bogotá&nbsp; 4.71° N
         </span>
+        {/* cambia todo el sitio entre español e inglés */}
+        <button className="nav__idioma" onClick={() => cambiarIdioma(t.idioma.otro)} aria-label={t.idioma.etiqueta}>
+          <span className={idioma === "es" ? "es-activo" : ""}>ES</span>
+          <span aria-hidden="true">/</span>
+          <span className={idioma === "en" ? "es-activo" : ""}>EN</span>
+        </button>
         <button
           ref={boton}
           className="nav__indice"
@@ -91,7 +96,7 @@ export default function Nav() {
           data-cursor={abierto ? "cerrar" : "índice"}
         >
           <span className="nav__latido" aria-hidden="true" />
-          {abierto ? "Cerrar" : "Ver todo"}
+          {abierto ? t.nav.cerrar : t.nav.verTodo}
           {abierto && <span aria-hidden="true">✕</span>}
         </button>
       </header>
@@ -101,13 +106,13 @@ export default function Nav() {
         <span className="brillo brillo--violeta" style={{ width: "55vw", height: "45vh", left: "20%", top: "30%", "--op": 0.28 }} aria-hidden="true" />
         <span className="brillo brillo--azul" style={{ width: "40vw", height: "35vh", right: "-5%", top: "-8%", "--op": 0.45 }} aria-hidden="true" />
         <span className="todo__fondo contorno" aria-hidden="true">
-          TODO
+          {t.nav.fondo}
         </span>
 
         <div className="todo__cuerpo">
-          <p className="hud">Archivo&nbsp; / &nbsp;09 proyectos&nbsp; / &nbsp;2025 a 2026</p>
+          <p className="hud">{t.nav.archivo}</p>
           <h2 id="todo-titulo" className="todo__titulo">
-            {["Todo lo que", "he hecho"].map((linea, k) => (
+            {t.nav.titulo.map((linea, k) => (
               <span key={k} className={`todo__linea ${k ? "contorno" : ""}`}>
                 {linea.split("").map((l, i) => (
                   <span key={i} className="todo__mascara">
@@ -136,8 +141,8 @@ export default function Nav() {
           </ol>
         </div>
 
-        <nav className="todo__ir" aria-label="Ir a una sección">
-          <span className="hud">Ir a</span>
+        <nav className="todo__ir" aria-label={t.nav.irASeccion}>
+          <span className="hud">{t.nav.irA}</span>
           {SECCIONES.map((s, i) => (
             <a key={s.id} href={url("/" + s.id)} onClick={(e) => ir(e, s.id)}>
               <span className="nav__num">{dos(i + 1)}</span>
@@ -145,7 +150,7 @@ export default function Nav() {
             </a>
           ))}
           <span className="todo__coordenadas hud hud--tenue">Bogotá&nbsp; 4.71° N&nbsp; 74.07° W</span>
-          <span className="todo__esc hud hud--tenue">Esc para cerrar</span>
+          <span className="todo__esc hud hud--tenue">{t.nav.esc}</span>
         </nav>
         <span className="esquinas todo__esquinas" aria-hidden="true" />
       </div>

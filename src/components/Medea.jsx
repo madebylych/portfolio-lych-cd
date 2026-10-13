@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap, reduceMotion } from "../lib/motion";
-import { MEDEA } from "../data/contenido";
+import { MEDEA as BASE } from "../data/contenido"; // frames y pasos: iguales en los dos idiomas
+import { useContenido, useT } from "../lib/idioma";
 import { useLightbox } from "./Lightbox";
 import Comparador from "./Comparador";
 import "./Medea.css";
@@ -12,15 +13,17 @@ export default function Medea({ enPagina = false }) {
   const actual = useRef(0);
   const [paso, setPaso] = useState(0);
   const abrir = useLightbox();
+  const t = useT();
+  const { MEDEA } = useContenido();
 
   // carga los 120 frames solo cuando la sección se acerca
   useEffect(() => {
     const cargar = () => {
       if (frames.current.length) return;
-      frames.current = Array.from({ length: MEDEA.frames }, (_, i) => {
+      frames.current = Array.from({ length: BASE.frames }, (_, i) => {
         const im = new Image();
         im.decoding = "async";
-        im.src = MEDEA.frame(i + 1);
+        im.src = BASE.frame(i + 1);
         if (i === 0) im.onload = () => dibujar(0);
         return im;
       });
@@ -57,7 +60,7 @@ export default function Medea({ enPagina = false }) {
       if (reduceMotion) return;
       const estado = { f: 0 };
       gsap.to(estado, {
-        f: MEDEA.frames - 1,
+        f: BASE.frames - 1,
         ease: "none",
         snap: "f",
         scrollTrigger: {
@@ -66,7 +69,7 @@ export default function Medea({ enPagina = false }) {
           end: "+=320%",
           pin: true,
           scrub: 0.4,
-          onUpdate: (self) => setPaso(Math.min(MEDEA.pasos.length - 1, Math.floor(self.progress * MEDEA.pasos.length))),
+          onUpdate: (self) => setPaso(Math.min(BASE.pasos.length - 1, Math.floor(self.progress * BASE.pasos.length))),
         },
         onUpdate: () => {
           const f = Math.round(estado.f);
@@ -105,7 +108,7 @@ export default function Medea({ enPagina = false }) {
               <span className="medea__linea-texto">Kismet</span>
             </span>
           </h2>
-          <p className="medea__bajada">{enPagina ? "Gira con el scroll." : MEDEA.bajada}</p>
+          <p className="medea__bajada">{enPagina ? t.medea.gira : MEDEA.bajada}</p>
           <ol className="medea__pasos">
             {MEDEA.pasos.map((p, i) => (
               <li key={p.nombre} className={i === paso || reduceMotion ? "es-actual" : i < paso ? "es-hecho" : ""}>
@@ -118,35 +121,35 @@ export default function Medea({ enPagina = false }) {
 
         <div className="medea__escenario">
           <span className="medea__arco" aria-hidden="true" />
-          <canvas ref={lienzo} className="medea__lienzo" role="img" aria-label="Medea Kismet girando 360 grados" />
+          <canvas ref={lienzo} className="medea__lienzo" role="img" aria-label={t.medea.girando} />
           {reduceMotion && <img className="medea__estatica" src={MEDEA.cuerpo} alt="" />}
         </div>
       </div>
 
       {enPagina && (
         <header className="proyecto__seccion-titulo medea__subtitulo">
-          <span className="hud">N.º 02</span>
-          <h2>Render y malla</h2>
+          <span className="hud">{t.n} 02</span>
+          <h2>{t.proyecto.render}</h2>
         </header>
       )}
       <div className="medea__detalle">
         <Comparador
           debajo={MEDEA.render}
           encima={MEDEA.wire}
-          altDebajo="Retrato final de Medea Kismet"
-          altEncima="El mismo retrato con su malla visible: topología en quads"
-          etiqueta="Comparar render y malla"
-          pie="Render final y su malla. Arrastra para comparar."
+          altDebajo={t.medea.altRender}
+          altEncima={t.medea.altMalla}
+          etiqueta={t.medea.etiquetaComparar}
+          pie={t.medea.pieComparar}
         />
 
         <div className="medea__extras">
-          <button className="medea__miniatura" onClick={() => abrir(MEDEA.concepto, "Hoja de concepto: Medea y su criatura búho")} data-cursor="ver">
-            <img src={MEDEA.concepto} alt="Hoja de concepto de Medea con su criatura búho" loading="lazy" />
-            <span>Hoja de concepto: Medea y su criatura búho</span>
+          <button className="medea__miniatura" onClick={() => abrir(MEDEA.concepto, t.medea.concepto)} data-cursor="ver">
+            <img src={MEDEA.concepto} alt={t.medea.altConcepto} loading="lazy" />
+            <span>{t.medea.concepto}</span>
           </button>
-          <button className="medea__miniatura" onClick={() => abrir(MEDEA.wireCuerpo, "Topología de cuerpo completo")} data-cursor="ver">
-            <img src={MEDEA.wireCuerpo} alt="Malla de cuerpo completo de Medea" loading="lazy" />
-            <span>Topología de cuerpo completo</span>
+          <button className="medea__miniatura" onClick={() => abrir(MEDEA.wireCuerpo, t.medea.cuerpo)} data-cursor="ver">
+            <img src={MEDEA.wireCuerpo} alt={t.medea.altCuerpo} loading="lazy" />
+            <span>{t.medea.cuerpo}</span>
           </button>
         </div>
       </div>

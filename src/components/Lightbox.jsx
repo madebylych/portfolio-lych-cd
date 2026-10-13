@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { gsap, pausarScroll, reduceMotion } from "../lib/motion";
+import { useT } from "../lib/idioma";
 import "./Lightbox.css";
 
 const Ctx = createContext(() => {});
@@ -10,6 +11,7 @@ export function LightboxProvider({ children }) {
   const [item, setItem] = useState(null);
   const origen = useRef(null);
   const caja = useRef(null);
+  const t = useT();
 
   const abrir = useCallback((src, titulo) => {
     origen.current = document.activeElement;
@@ -49,7 +51,7 @@ export function LightboxProvider({ children }) {
           <img className="visor__img" src={item.src} alt={item.titulo} />
           <p className="visor__titulo">{item.titulo}</p>
           <button className="visor__cerrar" onClick={cerrar}>
-            Cerrar
+            {t.cerrar}
           </button>
         </div>
       )}

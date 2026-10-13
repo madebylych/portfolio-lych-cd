@@ -390,3 +390,39 @@
     --l: 16px;
   }
 }
+
+/* botón de idioma ES / EN */
+.nav__idioma {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--borde);
+  background: rgba(0, 0, 0, 0.35);
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--lavanda-tenue);
+  cursor: pointer;
+  transition: border-color 0.4s, background 0.4s;
+}
+
+.nav__idioma:hover {
+  border-color: var(--violeta-claro);
+  background: var(--violeta-suave);
+}
+
+.nav__idioma .es-activo {
+  color: var(--lavanda);
+  text-shadow: 0 0 10px rgba(138, 93, 255, 0.8);
+}
+
+@media (max-width: 860px) {
+  .nav {
+    gap: 0.6rem;
+  }
+  .nav__idioma {
+    padding: 0.7rem 0.6rem;
+    font-size: 0.62rem;
+  }
+}

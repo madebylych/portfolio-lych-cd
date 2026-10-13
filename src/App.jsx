@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { iniciarScroll, irA, ScrollTrigger } from "./lib/motion";
 import { leerRuta, useRuta } from "./lib/ruta";
+import { useIdioma } from "./lib/idioma";
 import Preloader from "./components/Preloader";
 import Cursor from "./components/Cursor";
 import Nav from "./components/Nav";
@@ -17,6 +18,7 @@ export default function App() {
   const revelar = useCallback(() => setFase((f) => (f === "cargando" ? "revelando" : f)), []);
   const terminar = useCallback(() => setFase("listo"), []);
   const ruta = leerRuta(useRuta());
+  const idioma = useIdioma();
 
   useEffect(() => {
     iniciarScroll();
@@ -36,14 +38,20 @@ export default function App() {
     if (ruta.ancla) requestAnimationFrame(() => irA(ruta.ancla, true));
   }, [ruta.pagina, ruta.id, ruta.ancla]);
 
+  // al cambiar de idioma la página se vuelve a montar (las animaciones letra por letra
+  // dependen del texto) y los pines de scroll se recalculan
+  useEffect(() => {
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  }, [idioma]);
+
   return (
     <LightboxProvider>
       <Cursor />
       <Transicion />
       {fase !== "listo" && <Preloader alRevelar={revelar} alTerminar={terminar} />}
       <Nav />
-      {ruta.pagina === "proyecto" ? <Proyecto key={ruta.id} id={ruta.id} /> : <Inicio entrar={listo} />}
-      <Contacto />
+      {ruta.pagina === "proyecto" ? <Proyecto key={ruta.id + idioma} id={ruta.id} /> : <Inicio key={`inicio-${idioma}`} entrar={listo} />}
+      <Contacto key={`contacto-${idioma}`} />
     </LightboxProvider>
   );
 }

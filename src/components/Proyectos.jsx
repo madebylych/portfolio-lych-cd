@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap, reduceMotion } from "../lib/motion";
 import { alClicEnlace, url } from "../lib/ruta";
-import { OBRAS } from "../data/contenido";
+import { useContenido, useT } from "../lib/idioma";
 import { Destello, Letras, Fondo } from "./Adornos";
 import "./Proyectos.css";
 
@@ -10,6 +10,8 @@ const dos = (n) => String(n).padStart(2, "0");
 /* Pósters en zigzag con el número grande hacia el centro. */
 export default function Proyectos() {
   const raiz = useRef(null);
+  const t = useT();
+  const { OBRAS } = useContenido();
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -53,13 +55,13 @@ export default function Proyectos() {
 
       <header className="obras__cabeza">
         <h2 id="obras-titulo" className="obras__titulo">
-          <span className="solo-lector">Proyectos</span>
+          <span className="solo-lector">{t.obras.titulo}</span>
           <span aria-hidden="true">
-            <Letras texto="Proyectos" clase="obras__letra" />
+            <Letras texto={t.obras.titulo} clase="obras__letra" />
           </span>
         </h2>
         <span className="obras__cuenta hud">({dos(OBRAS.length)})</span>
-        <p className="obras__bajada">Nueve trabajos entre ilustración, 3D, videojuegos y web. Elige uno para entrar a su historia.</p>
+        <p className="obras__bajada">{t.obras.bajada}</p>
         <Destello tam={26} violeta style={{ left: "32%", bottom: "-2.5rem" }} />
       </header>
 
@@ -77,7 +79,7 @@ export default function Proyectos() {
                 </span>
                 <span className="sticker obra__sticker">{o.etiqueta}</span>
                 <span className="obra__datos">
-                  <span className="hud obra__n">N.º {dos(i + 1)}</span>
+                  <span className="hud obra__n">{t.n} {dos(i + 1)}</span>
                   <span className="obra__año">{o.año}</span>
                   <span className="obra__titulo">{o.titulo}</span>
                   <span className="obra__tipo">{o.corto}</span>

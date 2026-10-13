@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap, reduceMotion } from "../lib/motion";
 import { MEDEA } from "../data/contenido";
 import LogoLiquido from "./LogoLiquido";
+import { useT } from "../lib/idioma";
 import "./Preloader.css";
 
 /*
@@ -27,6 +28,7 @@ function precargar(src) {
 export default function Preloader({ alRevelar, alTerminar }) {
   const raiz = useRef(null);
   const [nivel, setNivel] = useState(0);
+  const t = useT();
 
   useEffect(() => {
     const inicio = performance.now();
@@ -68,7 +70,7 @@ export default function Preloader({ alRevelar, alTerminar }) {
   }, [alRevelar, alTerminar]);
 
   return (
-    <div ref={raiz} className="pre" role="status" aria-label={`Cargando LYCH, ${Math.round(nivel * 100)} por ciento`}>
+    <div ref={raiz} className="pre" role="status" aria-label={t.cargando(Math.round(nivel * 100))}>
       <LogoLiquido nivel={nivel} className="pre__logo" />
     </div>
   );

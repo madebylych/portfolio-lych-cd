@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap, reduceMotion } from "../lib/motion";
 import { useRuta } from "../lib/ruta";
+import { textosActuales } from "../lib/idioma";
 import "./Cursor.css";
 
 /*
@@ -39,7 +40,8 @@ export default function Cursor() {
     };
     const sobre = (e) => {
       const el = e.target.closest("[data-cursor], a, button");
-      setEtiqueta(el ? el.dataset.cursor ?? "" : null);
+      const clave = el ? el.dataset.cursor ?? "" : null;
+      setEtiqueta(clave ? textosActuales().cursor[clave] ?? clave : clave);
       anillo.current.classList.toggle("cursor__anillo--sobre", Boolean(el));
     };
     window.addEventListener("pointermove", mover);

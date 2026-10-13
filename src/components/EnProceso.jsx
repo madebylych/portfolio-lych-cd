@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { gsap, reduceMotion } from "../lib/motion";
-import { EN_PROCESO } from "../data/contenido";
+import { useContenido, useT } from "../lib/idioma";
 import { Destello, Letras, Fondo } from "./Adornos";
 import "./EnProceso.css";
 
@@ -16,6 +16,8 @@ const POSE = [
 /* Lo que está vivo ahora mismo, contado en su etapa real. */
 export default function EnProceso() {
   const raiz = useRef(null);
+  const t = useT();
+  const { EN_PROCESO } = useContenido();
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -46,13 +48,13 @@ export default function EnProceso() {
       <Fondo brillos={[["violeta", 300, 300, 900, 500, 0.35, 220]]} cortes={[[-200, 420, 2000, 300, -6]]} />
       <header className="proceso__cabeza">
         <h2 id="proceso-titulo" className="proceso__titulo">
-          <span className="solo-lector">En proceso</span>
+          <span className="solo-lector">{t.proceso.titulo}</span>
           <span aria-hidden="true">
-            <Letras texto="En proceso" clase="proceso__letra" />
+            <Letras texto={t.proceso.titulo} clase="proceso__letra" />
           </span>
         </h2>
         <span className="hud proceso__cuenta">({String(EN_PROCESO.length).padStart(2, "0")})</span>
-        <p className="proceso__bajada">Lo que estoy construyendo ahora, con la etapa en la que va.</p>
+        <p className="proceso__bajada">{t.proceso.bajada}</p>
       </header>
 
       <ul className="proceso__tablero">

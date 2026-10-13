@@ -1,3 +1,4 @@
+import { useT } from "../lib/idioma";
 import "./Sprite.css";
 
 /*
@@ -8,12 +9,13 @@ import "./Sprite.css";
  */
 export default function Sprite({ src, frames, lado, fps, escala = 3, titulo }) {
   const tamano = lado * escala;
+  const t = useT();
   return (
     <figure className="sprite">
       <div
         className="sprite__lienzo"
         role="img"
-        aria-label={`${titulo}: animación de ${frames} frames`}
+        aria-label={t.sprite.aria(titulo, frames)}
         style={{
           "--tamano": `${tamano}px`,
           "--frames": frames,
@@ -23,9 +25,7 @@ export default function Sprite({ src, frames, lado, fps, escala = 3, titulo }) {
       />
       <figcaption>
         {titulo}
-        <span>
-          {frames} frames a {fps} fps
-        </span>
+        <span>{t.sprite.fps(frames, fps)}</span>
       </figcaption>
     </figure>
   );

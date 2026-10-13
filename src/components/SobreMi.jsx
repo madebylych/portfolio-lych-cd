@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { gsap, reduceMotion } from "../lib/motion";
-import { NOMBRE, SOBRE } from "../data/contenido";
+import { useContenido, useT } from "../lib/idioma";
 import { Destello, Fondo } from "./Adornos";
 import "./SobreMi.css";
 
@@ -10,6 +10,8 @@ const GIRO = [-1.5, 1, -0.5, 2, -1, 1.5, 0.5, -2, 1, -1, 2, -0.5, 1, -1.5];
 /* Quién es Emily y de dónde sale el nombre LYCH. Hechos, sin lore. */
 export default function SobreMi() {
   const raiz = useRef(null);
+  const t = useT();
+  const { NOMBRE, SOBRE } = useContenido();
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -53,7 +55,7 @@ export default function SobreMi() {
 
         <div className="sobre__textos">
           <h2 id="sobre-titulo" className="sobre__titulo contorno">
-            Sobre mí
+            {t.sobre.titulo}
           </h2>
           <h3 className="sobre__saludo sobre__entra">{SOBRE.saludo}</h3>
           {SOBRE.texto.map((t, i) => (
@@ -62,7 +64,7 @@ export default function SobreMi() {
             </p>
           ))}
 
-          <h4 className="hud sobre__subtitulo sobre__entra">Habilidades</h4>
+          <h4 className="hud sobre__subtitulo sobre__entra">{t.sobre.habilidades}</h4>
           <ul className="sobre__chips">
             {SOBRE.habilidades.map((h, i) => (
               <li key={h} className={`sobre__chip ${i % 4 === 0 || i % 7 === 2 ? "sobre__chip--lleno" : ""}`} style={{ "--g": `${GIRO[i % GIRO.length]}deg` }}>
@@ -71,7 +73,7 @@ export default function SobreMi() {
             ))}
           </ul>
 
-          <h4 className="hud sobre__subtitulo sobre__entra">Herramientas</h4>
+          <h4 className="hud sobre__subtitulo sobre__entra">{t.sobre.herramientas}</h4>
           <dl className="sobre__herramientas">
             {SOBRE.herramientas.map((h) => (
               <div key={h.grupo} className="sobre__entra">
@@ -84,12 +86,12 @@ export default function SobreMi() {
       </div>
 
       <div className="sobre__nombre">
-        <img className="sobre__chibi" src={SOBRE.logo} alt="Logo de LYCH" loading="lazy" />
+        <img className="sobre__chibi" src={SOBRE.logo} alt={t.sobre.logo} loading="lazy" />
         <div className="sobre__burbuja">
-          <h3>De dónde viene el nombre</h3>
+          <h3>{t.sobre.nombre}</h3>
           <p className="sobre__destacado">{NOMBRE.origen}</p>
           <p className="sobre__menor">{NOMBRE.curiosos.join(" ")}</p>
-          <h3>Por qué me atrapó</h3>
+          <h3>{t.sobre.porque}</h3>
           <p className="sobre__destacado">{NOMBRE.porque[0]}</p>
           <p className="sobre__menor">{NOMBRE.porque.slice(1).join(" ")}</p>
         </div>

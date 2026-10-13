@@ -13,7 +13,8 @@
 .contacto__titulo {
   position: relative;
   display: grid;
-  font-size: clamp(3.6rem, 12.5vw, 12rem);
+  /* la línea más larga (en letras) debe caber en el ancho: cada letra de Aboreto mide ~0.8 em con su espaciado */
+  font-size: min(clamp(3.6rem, 12.5vw, 12rem), calc(90vw / (var(--largo, 7) * 0.8)));
   line-height: 1.02;
   letter-spacing: 0.05em;
 }
@@ -128,7 +129,7 @@
     padding: 6rem 1rem 2rem;
   }
   .contacto__titulo {
-    font-size: 17vw;
+    font-size: min(17vw, calc(92vw / (var(--largo, 7) * 0.8)));
   }
   .contacto__juntos {
     margin-right: 0;
