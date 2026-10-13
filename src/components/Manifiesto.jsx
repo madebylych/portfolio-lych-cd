@@ -25,7 +25,7 @@ export default function Manifiesto() {
       caja.style.setProperty("--tam", "100px");
       const ancho = Math.max(...lineas.map((l) => l.scrollWidth));
       // en móvil queda más aire a la derecha para los números en sticker
-      const disponible = caja.clientWidth * (window.innerWidth < 860 ? 0.84 : 0.82);
+      const disponible = caja.clientWidth * (window.innerWidth < 860 ? 0.76 : 0.82);
       // tope por alto: el bloque (intro + 4 líneas, unas 4.7 veces el tamaño) ocupa cerca de dos tercios de la pantalla
       const tam = Math.min(140, window.innerHeight * 0.14, (100 * disponible) / ancho);
       caja.style.setProperty("--tam", `${tam.toFixed(1)}px`);
@@ -92,7 +92,7 @@ export default function Manifiesto() {
         </div>
 
         <Destello tam={30} style={{ right: "8%", top: "22%" }} />
-        <Destello tam={16} violeta style={{ left: "12%", top: "44%" }} />
+        <Destello tam={16} violeta style={{ left: "12%", top: "44%" }} className="mani__destello-lado" />
         <Destello tam={20} style={{ left: "6%", bottom: "12%" }} />
         <p className="vertical mani__vertical" aria-hidden="true">
           LYCH ✦ Manifiesto ✦ 2026

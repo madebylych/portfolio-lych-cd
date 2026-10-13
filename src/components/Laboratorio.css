@@ -281,8 +281,9 @@
   .lab__gigante {
     top: 4.5rem;
   }
+  /* debajo de la palabra LABORATORIO, a la derecha */
   .lab__cuenta {
-    top: 3.2rem;
+    top: calc(4.5rem + 100vw / 7.68 * 0.95);
     right: 1rem;
   }
   .lab__mazo {

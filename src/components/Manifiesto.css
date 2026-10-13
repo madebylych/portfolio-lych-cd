@@ -126,3 +126,21 @@
 .mani__linea:nth-of-type(4) {
   margin-left: calc(var(--tam) * 1.4);
 }
+
+/* móvil: el desplazamiento lateral es menor y el bloque deja aire a la derecha para los números */
+@media (max-width: 860px) {
+  .mani__linea:nth-of-type(2) {
+    margin-right: calc(var(--tam) * 0.6);
+  }
+  .mani__linea:nth-of-type(4) {
+    margin-left: calc(var(--tam) * 0.6);
+  }
+  .mani__sticker {
+    top: 0;
+    right: -1.9rem;
+  }
+  .mani__destello-lado {
+    top: 30% !important;
+    left: 8% !important;
+  }
+}
