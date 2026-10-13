@@ -76,3 +76,15 @@
   outline: 2px solid var(--pulso);
   outline-offset: 3px;
 }
+
+/* llena una caja de alto fijo (cartas del laboratorio) */
+.comparar--cubrir,
+.comparar--cubrir .comparar__marco {
+  height: 100%;
+}
+
+.comparar--cubrir img {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}

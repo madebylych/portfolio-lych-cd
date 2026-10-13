@@ -118,33 +118,220 @@ button {
   white-space: nowrap;
 }
 
-/* grano analógico muy sutil encima de todo */
-.grano {
-  position: fixed;
-  inset: -50%;
-  z-index: 90;
-  pointer-events: none;
-  opacity: 0.06;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grano 1s steps(4) infinite;
-}
-
-@keyframes grano {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-3%, 2%); }
-  50% { transform: translate(2%, -3%); }
-  75% { transform: translate(-1%, -2%); }
-  100% { transform: translate(0, 0); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .grano {
-    animation: none;
-  }
   *,
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
+}
+
+/* ===== Rediseño v2: piezas compartidas ===== */
+:root {
+  --f-mono: "Space Mono", ui-monospace, monospace;
+  --borde: rgba(220, 203, 255, 0.14);
+  --violeta-suave: rgba(138, 93, 255, 0.12);
+  --violeta-tenue: rgba(138, 93, 255, 0.06);
+}
+
+/* etiqueta tipo visor: N.º, coordenadas, contadores */
+.hud {
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--violeta-claro);
+}
+
+.hud--tenue {
+  color: var(--lavanda-tenue);
+  letter-spacing: 0.08em;
+}
+
+/* tipografía en contorno */
+.contorno {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px currentColor;
+}
+
+/* destello de cuatro puntas */
+.destello {
+  position: absolute;
+  width: var(--d, 22px);
+  aspect-ratio: 1;
+  color: var(--lavanda);
+  pointer-events: none;
+  animation: destello-girar 9s linear infinite;
+}
+
+.destello--violeta {
+  color: var(--violeta-claro);
+}
+
+@keyframes destello-girar {
+  0%, 100% { transform: rotate(0) scale(1); opacity: 1; }
+  50% { transform: rotate(45deg) scale(0.75); opacity: 0.6; }
+}
+
+/* sticker en píldora violeta */
+.sticker {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: var(--violeta-claro);
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* cinta con texto que corre */
+.cinta {
+  position: relative;
+  overflow: hidden;
+  width: 120vw;
+  margin-left: -10vw;
+  padding: 0.55rem 0;
+  font-family: var(--f-display);
+  font-size: clamp(1rem, 2.2vw, 1.9rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cinta--azul {
+  background: var(--violeta);
+  color: var(--lavanda);
+}
+
+.cinta--violeta {
+  background: var(--violeta-claro);
+  color: #000;
+}
+
+.cinta__pista {
+  display: inline-flex;
+  animation: cinta-correr var(--velocidad, 38s) linear infinite;
+}
+
+.cinta--reversa .cinta__pista {
+  animation-direction: reverse;
+}
+
+.cinta__pista span {
+  padding-right: 1.2em;
+}
+
+@keyframes cinta-correr {
+  to { transform: translateX(-50%); }
+}
+
+/* esquinas de visor */
+.esquinas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  --l: 18px;
+  --c: var(--violeta-claro);
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--l) 1px,
+    linear-gradient(var(--c), var(--c)) top left / 1px var(--l),
+    linear-gradient(var(--c), var(--c)) top right / var(--l) 1px,
+    linear-gradient(var(--c), var(--c)) top right / 1px var(--l),
+    linear-gradient(var(--c), var(--c)) bottom left / var(--l) 1px,
+    linear-gradient(var(--c), var(--c)) bottom left / 1px var(--l),
+    linear-gradient(var(--c), var(--c)) bottom right / var(--l) 1px,
+    linear-gradient(var(--c), var(--c)) bottom right / 1px var(--l);
+  background-repeat: no-repeat;
+}
+
+/* texto vertical en el borde derecho */
+.vertical {
+  position: absolute;
+  right: 1.1rem;
+  writing-mode: vertical-rl;
+  font-family: var(--f-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--lavanda-tenue);
+  pointer-events: none;
+}
+
+/* botón en píldora con borde */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid var(--lavanda);
+  border-radius: 999px;
+  background: none;
+  color: var(--lavanda);
+  font-size: 0.92rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.4s, color 0.4s, border-color 0.4s;
+}
+
+.boton:hover {
+  background: var(--lavanda);
+  color: #000;
+}
+
+.boton--suave {
+  border-color: var(--borde);
+}
+
+/* brillo difuso de fondo */
+.brillo {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(var(--blur, 120px));
+  pointer-events: none;
+  opacity: var(--op, 0.35);
+}
+
+.brillo--violeta { background: var(--violeta-claro); }
+.brillo--azul { background: var(--violeta); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cinta__pista,
+  .destello {
+    animation: none;
+  }
+}
+
+/* sin barra de scroll visible: el scroll sigue funcionando igual */
+html,
+.todo {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+.todo::-webkit-scrollbar {
+  display: none;
+}
+
+/* fondo de sección copiado del Figma (ver Fondo en Adornos.jsx) */
+:root {
+  /* un píxel del Figma; en pantallas angostas no baja de 0.5 px para que los brillos no se pierdan */
+  --ub: max(calc(min(100vw, 1600px) / 1440), 0.5px);
+}
+
+.fondo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.corte {
+  position: absolute;
+  transform-origin: 0 0;
+  background: rgba(138, 93, 255, 0.12);
 }

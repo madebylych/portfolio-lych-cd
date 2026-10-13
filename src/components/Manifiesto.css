@@ -1,19 +1,128 @@
-.manifiesto {
+/* la sección es alta y su contenido queda fijo: el scroll reproduce la animación */
+.mani {
   position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 115svh;
-  padding: 20vh var(--margen);
+  height: 260svh;
+}
+
+.mani__fijo {
+  position: sticky;
+  top: 0;
+  height: 100svh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 84px var(--margen) 4rem;
+  isolation: isolate;
 }
 
-.manifiesto__texto {
+.mani__etiqueta {
+  position: absolute;
+  top: 120px;
+  left: var(--margen);
+  display: grid;
+  gap: 0.3rem;
+}
+
+/* bloque justificado (todos los renglones del mismo ancho), ubicado en el centro de la pantalla */
+.mani__texto {
+  --tam: 120px;
   position: relative;
-  max-width: 21em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
   font-family: var(--f-display);
-  font-size: clamp(1.9rem, 4.4vw, 4rem);
-  line-height: 1.18;
-  text-align: center;
-  text-wrap: balance;
+  text-transform: uppercase;
 }
 
+.mani__intro {
+  width: max-content;
+  margin: 0 0 0.5em;
+  white-space: nowrap;
+  font-size: calc(var(--tam) * 0.36);
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+}
+
+.mani__linea {
+  --c: 220, 203, 255;
+  --relleno: 0;
+  position: relative;
+  width: max-content;
+  font-size: var(--tam);
+  line-height: 1.04;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  color: rgb(var(--c));
+}
+
+.mani__linea--violeta {
+  --c: 138, 93, 255;
+}
+
+/* contorno que se va llenando (GSAP anima --relleno de 0 a 1) */
+.mani__linea.contorno {
+  -webkit-text-fill-color: rgba(var(--c), var(--relleno));
+  -webkit-text-stroke: 1px rgb(var(--c));
+}
+
+
+.mani__letra {
+  will-change: transform;
+}
+
+.mani__sticker {
+  position: absolute;
+  top: 0.12em;
+  right: -0.55em;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: var(--violeta-claro);
+  color: #000;
+  -webkit-text-fill-color: #000;
+  -webkit-text-stroke: 0;
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  rotate: 8deg;
+}
+
+.mani__vertical {
+  top: 130px;
+}
+
+@media (max-width: 860px) {
+  .mani {
+    height: 170svh;
+  }
+  .mani__fijo {
+    padding-top: 72px;
+  }
+  .mani__etiqueta {
+    top: 96px;
+    left: 1rem;
+  }
+  .mani__intro {
+    font-size: max(calc(var(--tam) * 0.38), 0.72rem);
+  }
+  .mani__sticker {
+    font-size: 0.55rem;
+    top: -0.1em;
+    right: -2.1rem;
+  }
+  .mani__vertical {
+    display: none;
+  }
+}
+
+/* al final no quedan alineados: "Ilustración," se corre a la izquierda y "Diseño y" a la derecha
+   (en un bloque centrado, un margen de 2X desplaza el renglón X hacia el lado contrario) */
+.mani__linea:nth-of-type(2) {
+  margin-right: calc(var(--tam) * 1.4);
+}
+
+.mani__linea:nth-of-type(4) {
+  margin-left: calc(var(--tam) * 1.4);
+}

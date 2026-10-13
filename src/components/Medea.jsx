@@ -117,11 +117,18 @@ export default function Medea({ enPagina = false }) {
         </div>
 
         <div className="medea__escenario">
+          <span className="medea__arco" aria-hidden="true" />
           <canvas ref={lienzo} className="medea__lienzo" role="img" aria-label="Medea Kismet girando 360 grados" />
           {reduceMotion && <img className="medea__estatica" src={MEDEA.cuerpo} alt="" />}
         </div>
       </div>
 
+      {enPagina && (
+        <header className="proyecto__seccion-titulo medea__subtitulo">
+          <span className="hud">N.º 02</span>
+          <h2>Render y malla</h2>
+        </header>
+      )}
       <div className="medea__detalle">
         <Comparador
           debajo={MEDEA.render}

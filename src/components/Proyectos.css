@@ -1,0 +1,214 @@
+.obras {
+  position: relative;
+  padding: 10rem var(--margen) 12rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.obras__cabeza {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  max-width: 1440px;
+  margin: 0 auto 8rem;
+}
+
+.obras__titulo {
+  font-size: clamp(3.4rem, 11vw, 10rem);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.obras__cuenta {
+  align-self: start;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.obras__bajada {
+  grid-column: 1 / -1;
+  justify-self: end;
+  max-width: 22rem;
+  margin-top: 1.5rem;
+  color: var(--lavanda-tenue);
+  font-size: 1.1rem;
+}
+
+/* zigzag: cada póster ocupa dos filas; los de la derecha empiezan una fila más abajo */
+.obras__lista {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: clamp(220px, 21vw, 300px);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.obra {
+  position: relative;
+  grid-row: calc(var(--i) + 1) / span 2;
+}
+
+.obra--izq {
+  grid-column: 1;
+}
+
+.obra--der {
+  grid-column: 2;
+  display: flex;
+  justify-content: flex-end;
+  /* sin esto el póster se estira hasta el alto de la celda */
+  align-items: flex-start;
+}
+
+.obra__poster {
+  position: relative;
+  display: block;
+  width: min(400px, 30vw);
+  padding: 14px 14px 18px;
+  border: 1px solid var(--borde);
+  border-radius: 50% 50% 8px 8px / min(200px, 15vw) min(200px, 15vw) 8px 8px;
+  background: var(--noche-2);
+  color: var(--lavanda);
+  text-decoration: none;
+  rotate: -2deg;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.6s, border-color 0.6s;
+}
+
+.obra--der .obra__poster {
+  rotate: 2deg;
+}
+
+.obra__poster:hover {
+  border-color: rgba(138, 93, 255, 0.6);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55), 0 0 50px rgba(138, 93, 255, 0.35);
+}
+
+.obra__imagen {
+  display: block;
+  aspect-ratio: 372 / 440;
+  overflow: hidden;
+  border-radius: 50% 50% 4px 4px / 42.3% 42.3% 4px 4px;
+  background: #160d2a;
+}
+
+.obra__imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.obra__imagen--pixel img {
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.obra__poster:hover .obra__imagen img {
+  transform: scale(1.06);
+}
+
+.obra__sticker {
+  position: absolute;
+  top: 9%;
+  right: 3%;
+  rotate: 14deg;
+}
+
+.obra__datos {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.15rem 1rem;
+  padding: 1rem 0.3rem 0;
+}
+
+.obra__n {
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+}
+
+.obra__año {
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  color: var(--lavanda-tenue);
+}
+
+.obra__titulo {
+  grid-column: 1 / -1;
+  font-family: var(--f-display);
+  font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+.obra__tipo {
+  grid-column: 1 / -1;
+  font-size: 0.8rem;
+  color: var(--lavanda-tenue);
+}
+
+/* número grande en contorno, hacia el centro */
+.obra__numero {
+  position: absolute;
+  top: 22%;
+  font-family: var(--f-display);
+  font-size: clamp(6rem, 12vw, 11rem);
+  line-height: 1;
+  color: var(--violeta-claro);
+  pointer-events: none;
+}
+
+.obra--izq .obra__numero {
+  left: calc(min(400px, 30vw) + 3vw);
+}
+
+.obra--der .obra__numero {
+  right: calc(min(400px, 30vw) + 3vw);
+}
+
+@media (max-width: 860px) {
+  .obras {
+    padding: 7rem 1rem 8rem;
+  }
+  .obras__cabeza {
+    margin-bottom: 4rem;
+  }
+  .obras__bajada {
+    justify-self: start;
+    font-size: 0.95rem;
+  }
+  .obras__lista {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    row-gap: 1.5rem;
+  }
+  .obra,
+  .obra--der {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .obra--izq {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .obra__poster {
+    width: 74vw;
+    border-radius: 50% 50% 8px 8px / 37vw 37vw 8px 8px;
+  }
+  .obra__numero {
+    top: -0.1em;
+    font-size: 5.5rem;
+  }
+  .obra--izq .obra__numero {
+    left: auto;
+    right: 0;
+  }
+  .obra--der .obra__numero {
+    right: auto;
+    left: 0;
+  }
+}

@@ -5,46 +5,33 @@ const M = import.meta.env.BASE_URL + "media/";
 export const SOBRE = {
   foto: M + "sobre/emily.webp", // retrato de estudio
   logo: M + "marca/lych-logo.webp?v=2", // ?v=2: versión recortada, evita la caché vieja
+  saludo: "Hola, soy Emily",
   texto: [
     "Soy Emily Vanesa Chisaba Rivera y estudio Creación Digital en la Universidad El Bosque, en Bogotá.",
     "Trabajo entre la ilustración, el 3D, la animación, el diseño y el desarrollo web. LYCH es mi nombre artístico y mi marca personal: aquí reúno lo que hago.",
   ],
   habilidades: [
     "Storytelling",
-    "Game design",
     "Ilustración digital",
     "Ilustración vectorial",
     "Diseño de personajes",
+    "Animación",
+    "Fotografía",
     "Modelado 3D",
     "Retopología",
-    "Animación",
+    "Game design",
     "Diseño web",
     "Desarrollo front-end",
     "Investigación UX",
-    "Fotografía",
     "Producción de contenido",
     "Gestión de equipos creativos",
   ],
+  // agrupadas como en el rediseño v2 (Figma)
   herramientas: [
-    "Photoshop",
-    "Illustrator",
-    "Affinity",
-    "Clip Studio Paint",
-    "Live2D",
-    "Pixelorama",
-    "Blender",
-    "ZBrush",
-    "Substance",
-    "Unreal Engine",
-    "Godot",
-    "Figma",
-    "Canva",
-    "CapCut",
-    "Webflow",
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "Claude",
+    { grupo: "2D", lista: "Photoshop, Illustrator, Affinity, Clip Studio Paint, Live2D, Pixelorama" },
+    { grupo: "3D y videojuegos", lista: "Blender, ZBrush, Substance, Unreal Engine, Godot, Marvelous" },
+    { grupo: "Diseño y web", lista: "Figma, Canva, Webflow, HTML, CSS, JavaScript" },
+    { grupo: "Video e IA", lista: "CapCut, Claude, Higgsfield, Codex" },
   ],
 };
 
@@ -95,29 +82,41 @@ export const MEDEA = {
   frame: (i) => `${M}medea/tt/${String(i).padStart(3, "0")}.webp`,
 };
 
+/*
+ * Proyectos. `etiqueta` y `corto` son el sticker y la línea de la tarjeta del
+ * inicio. `secciones` arma la página del proyecto en orden:
+ *   pares: deslizadores boceto / color   deslizador: un boceto sobre su final
+ *   galeria: imágenes en marcos          referencias: obras ajenas, con crédito
+ *   sprites: animaciones de Zenka         medea: la sección especial de Medea
+ */
 export const OBRAS = [
   {
     id: "medea",
     titulo: "Medea Kismet",
     tipo: "Personaje 3D original",
+    corto: "Personaje 3D original",
+    etiqueta: "3D",
     rol: "Concepto, sculpt, retopología, bakes y render",
     año: 2026,
-    texto: "Del boceto a un modelo listo para animar: hoja de concepto, sculpt, retopología pensada para deformar, normal maps 4K, rig y render final.",
+    texto: "Personaje original. Del boceto a un modelo listo para animar: hoja de concepto, sculpt, retopología pensada para deformar, normal maps 4K, rig y render final.",
     portada: M + "medea/busto.webp",
-    imagenes: [M + "medea/cuerpo.webp", M + "medea/wire_busto.webp", M + "medea/concepto.webp"],
     tono: "#24103c",
     especial: "medea", // su página usa la sección con turntable y comparador
+    secciones: [{ tipo: "medea" }],
   },
   {
     id: "zenka",
     titulo: "Zenka",
     tipo: "Videojuego de plataformas y puzzles en pixel art, proyecto universitario en grupo",
+    corto: "Videojuego en pixel art",
+    etiqueta: "Pixel art",
     rol: "Sprites de Dilan, dibujados a mano",
     año: 2026,
     texto:
       "Zenka es un juego de plataformas y puzzles que estamos haciendo en grupo para la universidad, todavía en desarrollo. Aquí están los sprites de Dilan, uno de sus personajes: su animación de reposo de frente y en tres cuartos, a 128 píxeles. Cada frame está dibujado a mano, píxel por píxel, en Pixelorama.",
     portada: M + "zenka/portada.webp",
-    imagenes: [],
+    // tarjeta del inicio y arco de su página: un solo Dilan, ampliado sin suavizado
+    tarjeta: M + "zenka/dilan_tarjeta.png",
     // hojas de sprites: se animan en la página con CSS (steps), a la velocidad de Pixelorama
     sprites: [
       { titulo: "Reposo de frente", src: M + "zenka/dilan_frente.png", frames: 5, lado: 128, fps: 5 },
@@ -125,110 +124,169 @@ export const OBRAS = [
     ],
     pixelArt: true,
     tono: "#1a1030",
+    secciones: [{ tipo: "sprites", titulo: "Animaciones" }],
   },
   {
     id: "sentir",
     titulo: "Proyecto Sentir",
     tipo: "Libro ilustrado de ciencia ficción, formato A6",
+    corto: "Libro ilustrado de ciencia ficción",
+    etiqueta: "Libro",
     rol: "Ilustración de portada y capítulos",
     año: 2025,
     texto:
       "Tres capítulos, tres personajes: Cami y el último día de ruido, Em y el error perfecto, y un renacimiento. Cada ilustración pasó de boceto a color final.",
     portada: M + "sentir/portada.webp",
-    imagenes: [M + "sentir/portada_b.webp", M + "sentir/boceto_portada.webp", M + "sentir/proceso_portada.webp", { src: M + "sentir/rostros.webp", pie: "Primer intento de diseño de personajes" }],
-    // cada capítulo: boceto y final del mismo tamaño, para compararlos con el deslizador
-    pares: [
-      { titulo: "Capítulo 1: Cami, el último día de ruido", boceto: M + "sentir/boceto_cap1.webp", final: M + "sentir/cap1.webp" },
-      { titulo: "Capítulo 2: Em, el error perfecto", boceto: M + "sentir/boceto_cap2.webp", final: M + "sentir/cap2.webp" },
-      { titulo: "Capítulo 3: Renacimiento", boceto: M + "sentir/boceto_cap3.webp", final: M + "sentir/cap3.webp" },
-    ],
     tono: "#2a1350",
+    secciones: [
+      {
+        tipo: "pares",
+        titulo: "Del boceto al color",
+        ayuda: "Arrastra sobre cada ilustración para ver el boceto debajo.",
+        // cada capítulo: boceto y final del mismo tamaño, para compararlos con el deslizador
+        pares: [
+          { titulo: "Capítulo 1: Cami, el último día de ruido", boceto: M + "sentir/boceto_cap1.webp", final: M + "sentir/cap1.webp" },
+          { titulo: "Capítulo 2: Em, el error perfecto", boceto: M + "sentir/boceto_cap2.webp", final: M + "sentir/cap2.webp" },
+          { titulo: "Capítulo 3: Renacimiento", boceto: M + "sentir/boceto_cap3.webp", final: M + "sentir/cap3.webp" },
+        ],
+      },
+      {
+        tipo: "deslizador",
+        titulo: "La portada",
+        final: M + "sentir/portada_b.webp",
+        boceto: M + "sentir/boceto_portada_par.webp",
+        ayuda: "Arrastra para ver el boceto de la portada.",
+        inicio: 64,
+        luego: [M + "sentir/proceso_portada.webp", { src: M + "sentir/rostros.webp", pie: "Primer intento de diseño de personajes" }],
+      },
+    ],
   },
   {
     id: "fantasma",
     titulo: "Fantasma",
     tipo: "Ilustración para Noxtober",
+    corto: "Ilustración para Noxtober",
+    etiqueta: "Ilustración",
     rol: "Ilustración digital",
     año: 2025,
     texto:
       "Ilustración con la temática de fantasma. Muestra a un padre en duelo con su hijo recién fallecido: hay nombre para la viudez y la orfandad, pero no para cuando se pierde un hijo.",
     portada: M + "lab/fantasma.webp",
-    imagenes: [],
     tono: "#1c1238",
+    secciones: [
+      {
+        tipo: "deslizador",
+        titulo: "La ilustración",
+        final: M + "lab/fantasma.webp",
+        boceto: M + "lab/fantasma_boceto.webp",
+        ayuda: "Arrastra para ver el boceto.",
+        vertical: true,
+      },
+    ],
   },
   {
     id: "cocacola",
     titulo: "Refresca tu mundo",
     tipo: "Ejercicio académico de ilustración vectorial: campaña para Coca-Cola",
+    corto: "Ilustración vectorial",
+    etiqueta: "Vectorial",
     rol: "Concepto, ilustración vectorial y piezas",
     año: 2025,
     texto: "Del boceto en papel a la ilustración y su despliegue en piezas para redes y correo. No es un encargo de la marca.",
     portada: M + "cocacola/key.webp",
-    imagenes: [M + "cocacola/boceto.webp", M + "cocacola/pieza1.webp", M + "cocacola/pieza3.webp"],
     tono: "#5a0f22",
+    secciones: [
+      {
+        tipo: "deslizador",
+        titulo: "Del boceto a las piezas",
+        final: M + "cocacola/key.webp",
+        boceto: M + "cocacola/boceto_par.webp",
+        ayuda: "Arrastra para ver el boceto en papel.",
+        luego: [M + "cocacola/pieza1.webp", M + "cocacola/pieza3.webp"],
+      },
+    ],
   },
   {
     id: "lobbyboy",
     titulo: "Lobby Boy",
     tipo: "Ejercicio académico de ilustración vectorial sobre The Grand Budapest Hotel",
+    corto: "Ilustración vectorial",
+    etiqueta: "Vectorial",
     rol: "Tres remakes en ilustración vectorial",
     año: 2025,
     texto:
       "Tres remakes de un póster existente de The Grand Budapest Hotel, hechos con fines académicos y de práctica. Cada versión cambia la paleta a partir de las escenas de la película y de su simbología: el mismo personaje y el mismo hotel cuentan algo distinto según el color.",
     portada: M + "lobbyboy/3.webp",
-    imagenes: [M + "lobbyboy/1.webp", M + "lobbyboy/2.webp", M + "lobbyboy/3.webp"],
-    // el póster rosado NO es de Emily: se muestra solo como referencia, con su enlace
-    referencias: [
+    tono: "#3a1424",
+    secciones: [
+      { tipo: "galeria", titulo: "Tres versiones", imagenes: [M + "lobbyboy/1.webp", M + "lobbyboy/2.webp", M + "lobbyboy/3.webp"] },
+      // el póster rosado NO es de Emily: se muestra solo como referencia, con su enlace
       {
-        src: M + "lobbyboy/4.webp",
-        texto: "Póster original de referencia. No es de mi autoría.",
-        enlace: "https://co.pinterest.com/pin/212513676157558216/",
+        tipo: "referencias",
+        titulo: "Referencia",
+        referencias: [
+          {
+            src: M + "lobbyboy/4.webp",
+            texto: "Póster original de referencia. No es de mi autoría.",
+            enlace: "https://co.pinterest.com/pin/212513676157558216/",
+          },
+        ],
       },
     ],
-    tono: "#3a1424",
   },
   {
     id: "mambo",
     titulo: "Carteles MAMBO",
     tipo: "Ejercicio académico de ilustración vectorial: carteles para tres exposiciones del MAMBO",
+    corto: "Carteles vectoriales",
+    etiqueta: "Cartel",
     rol: "Ilustración vectorial y diseño de cartel",
     año: 2025,
     texto:
       "Tres exposiciones, tres lenguajes: la secuencia cinematográfica, el retrato que se disuelve y la línea hipnótica. Cada cartel parte de la obra del artista expuesto.",
     portada: M + "mambo/oraculo.webp",
-    imagenes: [M + "mambo/secuencias.webp", M + "mambo/infraleve.webp", M + "mambo/oraculo.webp"],
-    // fotos de las obras de los artistas expuestos: referencia, no son de Emily
-    referenciasTitulo: "Obras originales",
-    referencias: [
-      { src: M + "mambo/obra_garcia.webp", texto: "Obra de Saír García, base del cartel Secuencias." },
-      { src: M + "mambo/obra_munoz.webp", texto: "Obra de Óscar Muñoz, base del cartel Infraleve." },
-      { src: M + "mambo/obra_rueda.webp", texto: "Obra de María Isabel Rueda, base del cartel El oráculo de la noche." },
-    ],
     tono: "#1c1c26",
+    secciones: [
+      { tipo: "galeria", titulo: "Los carteles", imagenes: [M + "mambo/secuencias.webp", M + "mambo/infraleve.webp", M + "mambo/oraculo.webp"] },
+      // fotos de las obras de los artistas expuestos: referencia, no son de Emily
+      {
+        tipo: "referencias",
+        titulo: "Obras originales",
+        referencias: [
+          { src: M + "mambo/obra_garcia.webp", texto: "Obra de Saír García, base del cartel Secuencias." },
+          { src: M + "mambo/obra_munoz.webp", texto: "Obra de Óscar Muñoz, base del cartel Infraleve." },
+          { src: M + "mambo/obra_rueda.webp", texto: "Obra de María Isabel Rueda, base del cartel El oráculo de la noche." },
+        ],
+      },
+    ],
   },
   {
     id: "global",
     titulo: "Global Seguros",
     tipo: "Hackathon Global Seguros 2026: personajes 3D y experiencia web con Three.js",
+    corto: "3D y web, hackathon",
+    etiqueta: "3D + web",
     rol: "Modelado 3D y desarrollo web",
     año: 2026, // faltan capturas del sitio web
     texto: "Una madre y su hijo como imagen de una aseguradora: protección que acompaña.",
     portada: M + "global/personajes.webp",
-    imagenes: [M + "global/escena.webp", M + "global/personajes.webp"],
     tono: "#2b3550",
+    secciones: [{ tipo: "galeria", titulo: "Galería", imagenes: [M + "global/escena.webp", M + "global/personajes.webp"] }],
   },
   {
     id: "chrysos",
     titulo: "Chrysos Heirs",
     tipo: "Ejercicio académico personal: sitio web y gestor de datos sobre Honkai: Star Rail",
+    corto: "Sitio web y gestor de datos",
+    etiqueta: "Web",
     rol: "Diseño y desarrollo front-end",
     año: 2026,
     texto:
       "Una colección de los herederos de Amphoreus con fichas, videos y modo oscuro, alimentada por un gestor propio para crear, editar y borrar personajes, más un juego de memoria con servidor en Node. El arte de los personajes pertenece a HoYoverse.",
     portada: M + "web/chrysos.webp",
     enlace: { texto: "Ver el sitio en vivo", url: "https://madebylych.github.io/Chrysos-Heirs/" },
-    imagenes: [],
     tono: "#2b1a3d",
+    secciones: [{ tipo: "galeria", titulo: "El sitio", imagenes: [M + "web/chrysos.webp"] }],
   },
 ];
 
@@ -261,28 +319,26 @@ export const EN_PROCESO = [
   },
 ];
 
+/* Laboratorio: un mazo de cartas. `grupos` alimenta los filtros (una pieza puede estar en varios). Estudio Brave salió en el rediseño v2. */
+export const GRUPOS_LAB = ["Todo", "Personajes", "Fan art", "Estudios", "Fotografía"];
+
 export const LABORATORIO = [
-  { src: M + "lab/patinadora.webp", titulo: "Mere", nota: "Personaje original" },
-  { src: M + "lab/layne.webp", titulo: "Layne", nota: "Personaje original" },
+  { src: M + "lab/patinadora.webp", titulo: "Mere", nota: "Personaje original", grupos: ["Personajes"] },
+  { src: M + "lab/layne.webp", titulo: "Layne", nota: "Personaje original", grupos: ["Personajes"] },
   {
     src: M + "lab/fantasia.webp",
     titulo: "Fantasía y realidad",
     nota: "Ilustración vectorial",
+    grupos: ["Personajes"],
     // boceto del mismo tamaño: la pieza se muestra con deslizador boceto / final
     boceto: M + "lab/fantasia_boceto.webp",
   },
-  { src: M + "lab/wanderer.webp", titulo: "Wanderer", nota: "Fan art de Genshin Impact" },
-  { src: M + "lab/gato_furina.webp", titulo: "Gato Furina", nota: "Fan art de Genshin Impact" },
-  { src: M + "lab/hamster.webp", titulo: "Hámster", nota: "Fan art de Genshin Impact" },
-  { src: M + "lab/rosa.webp", titulo: "Rosa de vidrio", nota: "Fotografía" },
-  {
-    src: M + "lab/brave.webp",
-    titulo: "Estudio Brave",
-    nota: "Composición en Photoshop",
-    descripcion: "Uno de mis primeros ejercicios de composición y de Photoshop.",
-  },
-  { src: M + "lab/bauhaus.webp", titulo: "Guacamaya", nota: "Estudio Bauhaus" },
-  { src: M + "lab/peluche.webp", titulo: "Perro con gafas", nota: "Estudio de iluminación a contraluz" },
-  { src: M + "lab/gatos.webp", titulo: "Dos gatos", nota: "Estudio de iluminación a contraluz" },
+  { src: M + "lab/wanderer.webp", titulo: "Wanderer", nota: "Fan art de Genshin Impact", grupos: ["Fan art"] },
+  { src: M + "lab/gato_furina.webp", titulo: "Gato Furina", nota: "Fan art de Genshin Impact", grupos: ["Fan art"] },
+  { src: M + "lab/hamster.webp", titulo: "Hámster", nota: "Fan art de Genshin Impact", grupos: ["Fan art"] },
+  { src: M + "lab/bauhaus.webp", titulo: "Guacamaya", nota: "Estudio Bauhaus", grupos: ["Estudios"] },
+  // al final: la rosa, el perro y los gatos (estos dos están en Estudios y en Fotografía)
+  { src: M + "lab/rosa.webp", titulo: "Rosa de vidrio", nota: "Fotografía", grupos: ["Fotografía"] },
+  { src: M + "lab/peluche.webp", titulo: "Perro con gafas", nota: "Estudio de iluminación a contraluz", grupos: ["Estudios", "Fotografía"] },
+  { src: M + "lab/gatos.webp", titulo: "Dos gatos", nota: "Estudio de iluminación a contraluz", grupos: ["Estudios", "Fotografía"] },
 ];
-

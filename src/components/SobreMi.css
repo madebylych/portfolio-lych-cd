@@ -1,149 +1,243 @@
 .sobre {
-  padding: 12rem var(--margen) 12rem;
-}
-
-.sobre__titulo {
-  font-size: clamp(2.8rem, 7vw, 6.5rem);
-  line-height: 0.95;
+  position: relative;
+  padding: 10rem var(--margen) 10rem;
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .sobre__rejilla {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(2rem, 6vw, 7rem);
-  margin-top: 5rem;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
-/* foto redonda, centrada en su columna */
-.sobre__imagenes {
-  justify-self: center;
-  width: min(100%, 24rem);
+.sobre__foto {
+  position: relative;
+  align-self: start;
+  padding: 26px;
+}
+
+.sobre__levita {
+  position: relative;
+  animation: levitar 7s ease-in-out infinite;
+}
+
+/* casi imperceptible: 6 px de subida y una inclinación mínima */
+@keyframes levitar {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(0.35deg); }
 }
 
 .sobre__marco {
-  margin: 0;
-  aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 50%;
-  background: var(--noche-2);
-  border: 1px solid var(--lavanda-linea);
+  position: absolute;
+  inset: -26px;
+  border: 1px solid var(--violeta-claro);
+  border-radius: 50% 50% 0 0 / 34% 34% 0 0;
+  pointer-events: none;
 }
 
-.sobre__marco img {
+.sobre__retrato {
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid rgba(232, 220, 255, 0.5);
+  border-radius: 50% 50% 0 0 / 40% 40% 0 0;
+}
+
+.sobre__retrato img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 22%; /* la cara queda en el centro del círculo */
 }
 
-.sobre__marco--vacio {
-  display: grid;
-  place-items: center;
-  border-style: dashed;
-  font-size: var(--t-0);
-  color: var(--lavanda-tenue);
+.sobre__titulo {
+  font-size: clamp(3.4rem, 8.6vw, 8.4rem);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--violeta-claro);
+  white-space: nowrap;
+}
+
+.sobre__saludo {
+  margin: 1.4rem 0 1.6rem;
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .sobre__parrafo {
-  max-width: var(--ancho-texto);
-  font-size: var(--t-2);
-  line-height: 1.55;
+  max-width: 38rem;
+  margin-bottom: 1rem;
+  font-size: 1.12rem;
 }
 
-.sobre__parrafo + .sobre__parrafo {
-  margin-top: 1.1rem;
+.sobre__parrafo--tenue {
   color: var(--lavanda-tenue);
 }
 
 .sobre__subtitulo {
-  margin: 3rem 0 1rem;
-  font-size: var(--t-3);
+  margin: 2.4rem 0 1rem;
+  font-size: 0.62rem;
 }
 
-.sobre__herramientas {
+.sobre__chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.6rem 0.55rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.sobre__herramientas--habilidades li {
-  border-color: var(--violeta-claro);
-  color: var(--lavanda);
-}
-
-.sobre__herramientas li {
-  padding: 0.4rem 0.9rem;
-  border: 1px solid var(--lavanda-linea);
+.sobre__chip {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--borde);
   border-radius: 999px;
-  font-size: var(--t-0);
+  background: rgba(0, 0, 0, 0.35);
+  font-size: 0.82rem;
+  rotate: var(--g);
+  transition: background 0.4s, border-color 0.4s, rotate 0.4s;
 }
 
-/* misma rejilla que arriba: el icono queda bajo la foto, el texto bajo los párrafos */
+.sobre__chip--lleno {
+  background: rgba(60, 0, 193, 0.35);
+  border-color: rgba(138, 93, 255, 0.4);
+}
+
+.sobre__chip:hover {
+  rotate: 0deg;
+  border-color: var(--violeta-claro);
+}
+
+.sobre__herramientas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem 3rem;
+  margin: 0;
+}
+
+.sobre__herramientas dt {
+  font-family: var(--f-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sobre__herramientas dd {
+  margin: 0.3rem 0 0;
+  font-size: 0.86rem;
+  color: var(--lavanda-tenue);
+}
+
+/* chibi + burbuja de diálogo con el origen del nombre */
 .sobre__nombre {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(2rem, 6vw, 7rem);
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 1.2fr);
   align-items: start;
-  margin-top: 6rem;
+  gap: 3rem;
+  max-width: 1440px;
+  margin: 7rem auto 0;
 }
 
-/* el icono, grande y suelto bajo la foto; se queda a la vista mientras se lee el texto */
-.sobre__icono {
+.sobre__chibi {
   justify-self: center;
-  position: sticky;
-  top: 18vh;
-  width: min(100%, 24rem);
-  filter: drop-shadow(0 18px 40px rgba(138, 93, 255, 0.25));
+  width: min(200px, 60%);
+  filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 22px rgba(138, 93, 255, 0.8));
 }
 
-.sobre__nombre-texto {
-  padding-top: 2rem;
-  border-top: 1px solid var(--lavanda-linea);
+.sobre__burbuja {
+  position: relative;
+  padding: 2rem 2.4rem 2.2rem;
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  background: var(--noche-2);
 }
 
-.sobre__nombre-texto > .sobre__subtitulo:first-child {
+.sobre__burbuja::before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 70px;
+  border: 15px solid transparent;
+  border-right-color: #1a1820;
+}
+
+.sobre__burbuja h3 {
+  margin: 1.4rem 0 0.6rem;
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sobre__burbuja h3:first-child {
   margin-top: 0;
 }
 
-.sobre__porque {
-  max-width: var(--ancho-texto);
-  font-size: var(--t-2);
-  line-height: 1.55;
+.sobre__destacado {
+  font-size: 1.05rem;
+  font-weight: 400;
 }
 
-.sobre__porque + .sobre__porque {
-  margin-top: 1rem;
+.sobre__menor {
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
   color: var(--lavanda-tenue);
 }
 
-.sobre__origen {
-  font-size: var(--t-2);
-}
-
-.sobre__curiosos {
-  display: grid;
-  gap: 0.8rem;
-  margin: 2rem 0 0;
-  padding-left: 1.1rem;
-  color: var(--lavanda-tenue);
-}
-
-.sobre__curiosos li::marker {
-  color: var(--violeta-claro);
-}
-
-@media (max-width: 820px) {
-  .sobre__rejilla {
-    grid-template-columns: 1fr;
+@media (prefers-reduced-motion: reduce) {
+  .sobre__levita {
+    animation: none;
   }
+}
+
+@media (max-width: 860px) {
+  .sobre {
+    padding: 7rem 1rem 6rem;
+  }
+  .sobre__rejilla,
   .sobre__nombre {
     grid-template-columns: 1fr;
   }
-  .sobre__icono {
-    position: static;
-    width: 14rem;
+  .sobre__foto {
+    order: 2;
+    width: min(78vw, 320px);
+    justify-self: center;
+    margin: 1rem 0 2rem;
+  }
+  .sobre__textos {
+    display: contents;
+  }
+  .sobre__titulo {
+    order: 1;
+    font-size: 15vw;
+  }
+  .sobre__saludo,
+  .sobre__parrafo,
+  .sobre__subtitulo,
+  .sobre__chips,
+  .sobre__herramientas {
+    order: 3;
+  }
+  .sobre__herramientas {
+    grid-template-columns: 1fr;
+  }
+  .sobre__nombre {
+    margin-top: 4rem;
+    gap: 2rem;
+  }
+  .sobre__chibi {
+    width: 150px;
+  }
+  .sobre__burbuja {
+    padding: 1.6rem 1.3rem;
+  }
+  .sobre__burbuja::before {
+    left: 50%;
+    top: -30px;
+    margin-left: -15px;
+    border-right-color: transparent;
+    border-bottom-color: #1a1820;
   }
 }

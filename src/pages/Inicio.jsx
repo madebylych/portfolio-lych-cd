@@ -1,6 +1,6 @@
 import Hero from "../components/hero/Hero";
 import Manifiesto from "../components/Manifiesto";
-import Disquera from "../components/Disquera";
+import Proyectos from "../components/Proyectos";
 import Laboratorio from "../components/Laboratorio";
 import EnProceso from "../components/EnProceso";
 import SobreMi from "../components/SobreMi";
@@ -10,7 +10,7 @@ export default function Inicio({ entrar }) {
     <main>
       <Hero entrar={entrar} />
       <Manifiesto />
-      <Disquera />
+      <Proyectos />
       <Laboratorio />
       <EnProceso />
       <SobreMi />

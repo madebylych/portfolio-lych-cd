@@ -7,12 +7,12 @@ import "./Comparador.css";
  * de la línea y `encima` a la derecha. El rango es un <input> real: funciona
  * con teclado y lector de pantalla.
  */
-export default function Comparador({ debajo, encima, altDebajo, altEncima, etiqueta, pie, inicio = 50 }) {
+export default function Comparador({ debajo, encima, altDebajo, altEncima, etiqueta, pie, inicio = 50, cubrir = false, className = "" }) {
   const [corte, setCorte] = useState(inicio);
   const id = useId();
 
   return (
-    <figure className="comparar" data-cursor="arrastra">
+    <figure className={`comparar ${cubrir ? "comparar--cubrir" : ""} ${className}`} data-cursor="arrastra">
       <div className="comparar__marco">
         <img src={debajo} alt={altDebajo} loading="lazy" draggable="false" />
         <img

@@ -1,116 +1,287 @@
+/*
+ * Medidas tomadas del Figma (Inicio v2, 1440 × 1060). --u es "un píxel del
+ * Figma": escala con el ancho de la pantalla y se detiene en 1600 px.
+ */
 .hero {
+  --u: calc(min(100vw, 1600px) / 1440);
   position: relative;
-  display: grid;
-  justify-items: center;
-  align-items: end;
-  padding-bottom: 7.5rem;
-  height: 100svh;
-  min-height: 560px;
+  height: max(calc(var(--u) * 1060), 100svh);
   overflow: hidden;
   isolation: isolate;
-  background: var(--noche);
 }
 
-/* degradado negro para que el nombre se lea sobre la ilustración */
-.hero::after {
-  content: "";
+.hero__gigante {
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: calc(var(--u) * 170);
+  translate: -50% 0;
   z-index: -1;
-  background:
-    linear-gradient(0deg, #000 6%, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.35) 55%, transparent 72%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.75), transparent 24%);
+  font-family: var(--f-display);
+  font-size: calc(var(--u) * 560);
+  line-height: 1.16;
+  letter-spacing: 0.02em;
+  color: var(--lavanda);
+  -webkit-text-stroke-width: 1.4px;
+  opacity: 0.55;
+  white-space: nowrap;
   pointer-events: none;
 }
 
-/* imagen de fondo: portada de Proyecto Sentir */
-.hero__fondo {
+.hero__hud {
   position: absolute;
-  inset: 0;
-  z-index: -1;
+  inset: calc(var(--u) * 140) var(--margen) auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hero__hud p {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.hero__hud .hud {
+  font-size: calc(var(--u) * 13);
+}
+
+.hero__hud-der {
+  margin-right: calc(var(--u) * 76);
+}
+
+/* el arco con la portada de SENTIR: 500 × 720 */
+.hero__escena {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--u) * 146);
+  width: calc(var(--u) * 500);
+  translate: -50% 0;
+}
+
+.hero__arco {
+  position: relative;
+  aspect-ratio: 500 / 720;
+  overflow: hidden;
+  border: 1px solid rgba(232, 220, 255, 0.5);
+  border-radius: 50% 50% 0 0 / 34.72% 34.72% 0 0;
+}
+
+.hero__arco img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
+  /* la cara del niño rubio está al 57 % del ancho de la imagen: así queda centrada en el arco */
+  object-position: 56% 0%;
 }
 
+/* sombra inferior para que LYCH se lea sobre la ilustración */
+.hero__arco::after {
+  content: "";
+  position: absolute;
+  inset: 58% 0 0;
+  background: linear-gradient(180deg, transparent, rgba(5, 3, 13, 0.88));
+}
+
+.hero__marco {
+  position: absolute;
+  inset: calc(var(--u) * -30);
+  bottom: calc(var(--u) * -26);
+  border: 1px solid var(--violeta-claro);
+  border-radius: 50% 50% 0 0 / 36% 36% 0 0;
+  pointer-events: none;
+}
+
+/* LYCH sólido, dentro del arco, sobre la parte baja de la ilustración */
 .hero__marca {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--u) * 2);
+  translate: -50% 0;
   display: flex;
-  /* limitado también por el alto: en pantallas bajas no puede tapar la ilustración */
-  font-size: clamp(4.5rem, min(20vw, 30svh), 19rem);
-  line-height: 0.82;
-  letter-spacing: 0.05em;
+  font-size: calc(var(--u) * 150);
+  line-height: 1.16;
+  letter-spacing: 0.04em;
   white-space: nowrap;
+  color: var(--lavanda);
+  text-shadow: 0 0 28px rgba(138, 93, 255, 0.55);
 }
 
 .hero__mascara {
   display: inline-block;
   overflow: hidden;
-  padding: 0.04em 0.01em;
+  padding: 0 0.01em;
 }
 
 .hero__letra {
   display: inline-block;
-  opacity: 0;
-  color: var(--lavanda);
 }
 
-.hero__pie {
+.hero__firma {
+  display: none;
+}
+
+.hero__info {
   position: absolute;
-  inset: auto var(--margen) 2rem var(--margen);
+  left: var(--margen);
+  top: calc(var(--u) * 520);
+}
+
+.hero__nombre {
+  margin-bottom: calc(var(--u) * 10);
+  font-weight: 500;
+  font-size: max(calc(var(--u) * 16), 0.85rem);
+}
+
+.hero__disciplinas {
+  display: grid;
+  gap: calc(var(--u) * 9);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--f-display);
+  font-size: calc(var(--u) * 32);
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero__disciplinas li {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
+  align-items: baseline;
+  gap: calc(var(--u) * 18);
 }
 
-.hero__bajada {
-  max-width: 24rem;
-  font-size: var(--t-0);
-  color: var(--lavanda-tenue);
+.hero__disciplinas .hud {
+  font-size: max(calc(var(--u) * 12), 0.55rem);
+  letter-spacing: 0.05em;
 }
 
-.hero__bajar {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  border: 0;
-  background: none;
-  font-size: var(--t-0);
-  color: var(--lavanda-tenue);
-}
-
-.hero__linea {
-  position: relative;
-  width: 1px;
-  height: 48px;
-  overflow: hidden;
-  background: var(--lavanda-linea);
-}
-
-.hero__linea::after {
-  content: "";
+.hero__acciones {
   position: absolute;
-  inset: 0;
-  background: var(--lavanda);
-  animation: bajar 2s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+  right: var(--margen);
+  top: calc(var(--u) * 600);
+  display: grid;
+  justify-items: end;
+  gap: calc(var(--u) * 16);
 }
 
-@keyframes bajar {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(100%); }
+.hero__acciones .boton {
+  padding: calc(var(--u) * 15) calc(var(--u) * 26);
+  font-size: max(calc(var(--u) * 15), 0.8rem);
 }
 
-@media (max-width: 700px) {
-  .hero__fondo {
-    object-position: 62% 30%;
-  }
-  .hero__pie {
+.hero__vertical {
+  top: calc(var(--u) * 160);
+}
+
+.hero__cintas {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--u) * 925);
+  z-index: 2;
+}
+
+.hero__cintas .cinta {
+  font-size: calc(var(--u) * 30);
+  padding: calc(var(--u) * 14) 0;
+}
+
+.hero__cintas .cinta:first-child {
+  rotate: -3.5deg;
+}
+
+.hero__cintas .cinta:last-child {
+  rotate: 3deg;
+  margin-top: calc(var(--u) * -44);
+}
+
+/* ===== Móvil: todo en columna ===== */
+@media (max-width: 860px) {
+  .hero {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    height: auto;
+    min-height: 0;
+    padding: 92px 1rem 0;
   }
-  .hero__bajar {
+  .hero__gigante,
+  .hero__vertical {
     display: none;
+  }
+  .hero__hud,
+  .hero__escena,
+  .hero__info,
+  .hero__acciones,
+  .hero__cintas {
+    position: relative;
+    inset: auto;
+    translate: none;
+  }
+  .hero__hud {
+    gap: 1rem;
+  }
+  .hero__hud-der {
+    margin-right: 0;
+    text-align: right;
+  }
+  .hero__hud .hud {
+    font-size: 0.6rem;
+  }
+  .hero__escena {
+    align-self: center;
+    width: min(76vw, 320px);
+    margin-top: 46px;
+  }
+  .hero__marco {
+    inset: -16px;
+    bottom: -14px;
+  }
+  .hero__marca {
+    bottom: 2px;
+    font-size: min(17vw, 4.4rem);
+  }
+  .hero__firma {
+    display: block;
+    margin-top: 1.6rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .hero__info {
+    margin-top: 1.6rem;
+  }
+  .hero__nombre {
+    font-size: 0.95rem;
+  }
+  .hero__disciplinas {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 0.8rem;
+    font-size: 0.98rem;
+    white-space: nowrap;
+  }
+  .hero__disciplinas li {
+    gap: 0.6rem;
+  }
+  .hero__acciones {
+    display: flex;
+    justify-items: start;
+    margin-top: 1.6rem;
+  }
+  .hero__acciones .boton {
+    padding: 0.8rem 1.3rem;
+    font-size: 0.9rem;
+  }
+  .hero__cintas {
+    top: auto;
+    margin: 2.6rem 0 1.4rem;
+    left: -1rem;
+    width: calc(100% + 2rem);
+  }
+  .hero__cintas .cinta {
+    font-size: 1rem;
+    padding: 0.5rem 0;
+  }
+  .hero__cintas .cinta:last-child {
+    margin-top: -0.6rem;
   }
 }

@@ -38,7 +38,6 @@ export default function App() {
 
   return (
     <LightboxProvider>
-      <div className="grano" aria-hidden="true" />
       <Cursor />
       <Transicion />
       {fase !== "listo" && <Preloader alRevelar={revelar} alTerminar={terminar} />}
