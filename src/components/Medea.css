@@ -222,3 +222,8 @@
   position: relative;
   z-index: 1;
 }
+
+/* con más de dos miniaturas (Vex), en dos columnas */
+.medea__extras:has(> :nth-child(3)) {
+  grid-template-columns: 1fr 1fr;
+}

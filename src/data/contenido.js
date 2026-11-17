@@ -106,6 +106,8 @@ export const VEX = {
   extras: [
     { src: M + "vex/cuerpo.webp", pie: "Cuerpo completo" },
     { src: M + "vex/wire_cuerpo.webp", pie: "Topología de cuerpo completo" },
+    { src: M + "vex/sin_ropa.webp", pie: "El cuerpo, sin la ropa" },
+    { src: M + "vex/wire_sin_ropa.webp", pie: "Topología del cuerpo" },
   ],
   frames: 120,
   frame: (i) => `${M}vex/tt/${String(i).padStart(3, "0")}.webp`,
@@ -385,9 +387,9 @@ export const OBRAS = [
     rol: "Modelado 3D y desarrollo web",
     año: 2026, // faltan capturas del sitio web
     texto: "Una madre y su hijo como imagen de una aseguradora: protección que acompaña.",
-    portada: M + "global/personajes.webp",
+    portada: M + "global/personajes_limpia.webp",
     tono: "#2b3550",
-    secciones: [{ tipo: "galeria", titulo: "Galería", imagenes: [M + "global/escena.webp", M + "global/personajes.webp"] }],
+    secciones: [{ tipo: "galeria", titulo: "Galería", imagenes: [M + "global/personajes_limpia.webp", M + "global/escena_limpia.webp"] }],
   },
   {
     id: "chrysos",
@@ -405,7 +407,7 @@ export const OBRAS = [
     creditos: [
       { rol: "Arte de los personajes", nombres: ["HoYoverse, Honkai: Star Rail"] },
     ],
-    secciones: [{ tipo: "galeria", titulo: "El sitio", imagenes: [M + "web/chrysos.webp"] }],
+    secciones: [{ tipo: "galeria", titulo: "El sitio", imagenes: [M + "web/chrysos_inicio.webp", M + "web/chrysos_ficha.webp", M + "web/chrysos_tema.webp", M + "web/chrysos_juego.webp", M + "web/chrysos_gestor.webp"] }],
   },
 ];
 

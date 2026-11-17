@@ -65,6 +65,8 @@ export const VEX = {
   extras: [
     { src: ES.VEX.cuerpo, pie: "Full body" },
     { src: ES.VEX.wireCuerpo, pie: "Full-body topology" },
+    { src: ES.VEX.extras[2].src, pie: "The body, without clothing" },
+    { src: ES.VEX.extras[3].src, pie: "Body topology" },
   ],
 };
 
