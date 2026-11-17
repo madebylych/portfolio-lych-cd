@@ -267,7 +267,7 @@ export const OBRAS = [
         titulo: "Prueba del guion",
         src: M + "cut/previz.mp4",
         poster: M + "cut/poster_previz.webp",
-        pie: "Previz generada con IA para probar el guion antes de grabar: no son los actores reales.",
+        pie: "Previz generada con IA para probar el guion antes de grabar. Las personas de este video no existen: las creó la IA.",
       },
     ],
   },

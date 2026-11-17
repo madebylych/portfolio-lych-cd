@@ -116,7 +116,7 @@ const OBRAS_EN = {
       "A fight on a film set goes wrong and the word cut means two things: the director's order and the wound. During the fight you don't know it's a shoot; when the actor falls and someone yells “Cut!”, the crew rushes in and the set is revealed. I co-directed it with María Sofía Vélez Arrubla.",
     secciones: [
       { titulo: "The short" },
-      { titulo: "Script test", pie: "AI-generated previz to test the script before shooting: these are not the real actors." },
+      { titulo: "Script test", pie: "AI-generated previz to test the script before shooting. The people in this video do not exist: they were created by AI." },
     ],
   },
   zenka: {
