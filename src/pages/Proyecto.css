@@ -579,3 +579,37 @@
   border-radius: 6px;
   background: #000;
 }
+
+/* créditos: compañeros, obras y recursos ajenos */
+.proyecto__creditos {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 4rem var(--margen) 6rem;
+  border-top: 1px solid var(--borde);
+}
+
+.proyecto__creditos h2 {
+  margin-bottom: 2rem;
+}
+
+.proyecto__creditos dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem 3rem;
+}
+
+.proyecto__creditos dt {
+  margin-bottom: 0.5rem;
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--violeta-claro);
+}
+
+.proyecto__creditos dd {
+  margin: 0 0 0.25rem;
+  color: var(--lavanda-tenue);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}

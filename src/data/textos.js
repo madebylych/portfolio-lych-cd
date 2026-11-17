@@ -52,6 +52,7 @@ export const TEXTOS = {
       piezas: "piezas",
       grupos: { Todo: "Todo", Personajes: "Personajes", "Fan art": "Fan art", Estudios: "Estudios", Fotografía: "Fotografía" },
     },
+    creditos: "Créditos",
     proceso: {
       titulo: "En proceso",
       bajada: "Lo que estoy construyendo ahora, con la etapa en la que va.",
@@ -170,6 +171,7 @@ export const TEXTOS = {
       piezas: "pieces",
       grupos: { Todo: "All", Personajes: "Characters", "Fan art": "Fan art", Estudios: "Studies", Fotografía: "Photography" },
     },
+    creditos: "Credits",
     proceso: {
       titulo: "In progress",
       bajada: "What I'm building right now, and the stage it's at.",

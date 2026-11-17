@@ -131,6 +131,9 @@ export const OBRAS = [
     portada: M + "medea/busto.webp",
     tono: "#24103c",
     especial: "medea", // su página usa la sección con turntable y comparador
+    creditos: [
+      { rol: "Vestuario base", nombres: ["Generado con Hunyuan3D (Tencent)"] },
+    ],
     secciones: [{ tipo: "medea" }],
   },
   {
@@ -145,6 +148,10 @@ export const OBRAS = [
       "Vex es el protagonista de NEXO: un desarrollador de inteligencia artificial, brillante, obsesivo y ansioso. Es completamente gris y su look es pintado a mano, con sombras escalonadas y trama de semitono, en la línea de Spider-Verse. La ropa se generó con IA y después se adaptó al personaje.",
     portada: M + "vex/busto.webp",
     tono: "#141a33",
+    creditos: [
+      { rol: "Proyecto", nombres: ["NEXO, semillero Gráfica Dinámica, Universidad El Bosque"] },
+      { rol: "Ropa", nombres: ["Generada con IA"] },
+    ],
     secciones: [
       { tipo: "medea", personaje: "VEX" },
       { tipo: "galeria", titulo: "En Blender", imagenes: [M + "vex/rostro.webp", M + "vex/ropa.webp", M + "vex/captura_cuerpo.webp"] },
@@ -220,6 +227,11 @@ export const OBRAS = [
     portada: M + "tour/inicio.webp", // pantalla de inicio de la app (no la pieza gráfica)
     enlace: { texto: "Probar la app en la web", url: "https://madebylych.github.io/tour-usaquen/" },
     tono: "#3a1a08",
+    creditos: [
+      { rol: "Equipo", nombres: ["Juan David Montoya Gallego (Formación Musical)", "Juan David Neira Lopez (Formación Musical)", "Oscar Fabian Pachon Beltran (Formación Musical)", "Manuela Guerrero Alvarez (Arquitectura)"] },
+      { rol: "Fotos de los lugares", nombres: ["Wikimedia Commons (Felipe Restrepo Acosta y otros autores, licencias CC) y fotos de cada lugar, con su crédito dentro de la app"] },
+      { rol: "Música", nombres: ["Pistas libres de derechos de Pixabay, con su crédito dentro de la app"] },
+    ],
     secciones: [
       { tipo: "galeria", titulo: "La app", imagenes: [M + "tour/inicio.webp", M + "tour/ruta.webp", M + "tour/tour.webp"] },
       { tipo: "galeria", titulo: "Página de descarga", imagenes: [M + "tour/web.webp"] },
@@ -260,6 +272,14 @@ export const OBRAS = [
       "Una pelea en un set de grabación sale mal y la palabra corte significa dos cosas: la orden del director y la herida. Durante la pelea no se sabe que es una grabación; cuando el actor cae y alguien grita «¡Corte!», aparece el equipo de producción y se revela el set. Lo codirigí con María Sofía Vélez Arrubla.",
     portada: M + "cut/portada.webp",
     tono: "#2a0a10",
+    creditos: [
+      { rol: "Dirección", nombres: ["María Sofía Vélez Arrubla", "Emily Vanesa Chisaba Rivera"] },
+      { rol: "Cámara", nombres: ["Andrés Castañeda"] },
+      { rol: "Reparto", nombres: ["Damián Borda (agresor)", "Juan Sebastián Rangel (víctima)"] },
+      { rol: "Staff", nombres: ["Valentina Torres", "Paula Rozo", "Sofía Real"] },
+      { rol: "Música", nombres: ["“Touch the Sky”, Kanye West. Todos los derechos pertenecen a sus autores; uso académico."] },
+      { rol: "Curso", nombres: ["Composición Plástica 4, Universidad El Bosque, 2026"] },
+    ],
     secciones: [
       { tipo: "video", titulo: "El corto", src: M + "cut/corte.mp4", poster: M + "cut/poster_corte.webp" },
       {
@@ -267,7 +287,7 @@ export const OBRAS = [
         titulo: "Prueba del guion",
         src: M + "cut/previz.mp4",
         poster: M + "cut/poster_previz.webp",
-        pie: "Previz generada con IA para probar el guion antes de grabar. Las personas de este video no existen: las creó la IA.",
+        pie: "Prueba del guion hecha con IA a partir de fotos de mis compañeros, antes de grabar.",
       },
     ],
   },
@@ -282,6 +302,9 @@ export const OBRAS = [
     texto: "Del boceto en papel a la ilustración y su despliegue en piezas para redes y correo. No es un encargo de la marca.",
     portada: M + "cocacola/key.webp",
     tono: "#5a0f22",
+    creditos: [
+      { rol: "Marca", nombres: ["Coca-Cola pertenece a The Coca-Cola Company. Ejercicio académico, no es un encargo."] },
+    ],
     secciones: [
       {
         tipo: "deslizador",
@@ -305,6 +328,9 @@ export const OBRAS = [
       "Tres remakes de un póster existente de The Grand Budapest Hotel, hechos con fines académicos y de práctica. Cada versión cambia la paleta a partir de las escenas de la película y de su simbología: el mismo personaje y el mismo hotel cuentan algo distinto según el color.",
     portada: M + "lobbyboy/3.webp",
     tono: "#3a1424",
+    creditos: [
+      { rol: "Referencia", nombres: ["Póster original de The Grand Budapest Hotel, no es de mi autoría"] },
+    ],
     secciones: [
       { tipo: "galeria", titulo: "Tres versiones", imagenes: [M + "lobbyboy/1.webp", M + "lobbyboy/2.webp", M + "lobbyboy/3.webp"] },
       // el póster rosado NO es de Emily: se muestra solo como referencia, con su enlace
@@ -333,6 +359,9 @@ export const OBRAS = [
       "Tres exposiciones, tres lenguajes: la secuencia cinematográfica, el retrato que se disuelve y la línea hipnótica. Cada cartel parte de la obra del artista expuesto.",
     portada: M + "mambo/oraculo.webp",
     tono: "#1c1c26",
+    creditos: [
+      { rol: "Obras de referencia", nombres: ["Saír García", "Óscar Muñoz", "María Isabel Rueda"] },
+    ],
     secciones: [
       { tipo: "galeria", titulo: "Los carteles", imagenes: [M + "mambo/secuencias.webp", M + "mambo/infraleve.webp", M + "mambo/oraculo.webp"] },
       // fotos de las obras de los artistas expuestos: referencia, no son de Emily
@@ -373,6 +402,9 @@ export const OBRAS = [
     portada: M + "web/chrysos.webp",
     enlace: { texto: "Ver el sitio en vivo", url: "https://madebylych.github.io/Chrysos-Heirs/" },
     tono: "#2b1a3d",
+    creditos: [
+      { rol: "Arte de los personajes", nombres: ["HoYoverse, Honkai: Star Rail"] },
+    ],
     secciones: [{ tipo: "galeria", titulo: "El sitio", imagenes: [M + "web/chrysos.webp"] }],
   },
 ];

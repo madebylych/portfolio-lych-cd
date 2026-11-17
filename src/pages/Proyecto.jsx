@@ -291,6 +291,22 @@ export default function Proyecto({ id }) {
         )
       )}
 
+      {o.creditos?.length > 0 && (
+        <section className="proyecto__creditos" aria-labelledby="sec-creditos">
+          <h2 id="sec-creditos" className="hud">{t.creditos}</h2>
+          <dl>
+            {o.creditos.map((c) => (
+              <div key={c.rol}>
+                <dt>{c.rol}</dt>
+                {c.nombres.map((n) => (
+                  <dd key={n}>{n}</dd>
+                ))}
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
+
       <a className="proyecto__siguiente" href={url(destinoSig)} onClick={(e) => alClicEnlace(e, destinoSig)} data-cursor="siguiente">
         <img className="proyecto__sig-fondo" src={siguiente.portada} alt="" loading="lazy" />
         <span className="proyecto__sig-velo" aria-hidden="true" />

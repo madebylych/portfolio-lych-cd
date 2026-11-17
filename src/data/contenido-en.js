@@ -116,7 +116,7 @@ const OBRAS_EN = {
       "A fight on a film set goes wrong and the word cut means two things: the director's order and the wound. During the fight you don't know it's a shoot; when the actor falls and someone yells “Cut!”, the crew rushes in and the set is revealed. I co-directed it with María Sofía Vélez Arrubla.",
     secciones: [
       { titulo: "The short" },
-      { titulo: "Script test", pie: "AI-generated previz to test the script before shooting. The people in this video do not exist: they were created by AI." },
+      { titulo: "Script test", pie: "Script test made with AI from photos of my classmates, before shooting." },
     ],
   },
   zenka: {
@@ -207,6 +207,41 @@ const OBRAS_EN = {
   },
 };
 
+const CREDITOS_EN = {
+  medea: [
+      { rol: "Base outfit", nombres: ["Generated with Hunyuan3D (Tencent)"] },
+  ],
+  vex: [
+      { rol: "Project", nombres: ["NEXO, Gráfica Dinámica research group, Universidad El Bosque"] },
+      { rol: "Clothing", nombres: ["Generated with AI"] },
+  ],
+  tour: [
+      { rol: "Team", nombres: ["Juan David Montoya Gallego (Music)", "Juan David Neira Lopez (Music)", "Oscar Fabian Pachon Beltran (Music)", "Manuela Guerrero Alvarez (Architecture)"] },
+      { rol: "Photos of the places", nombres: ["Wikimedia Commons (Felipe Restrepo Acosta and other authors, CC licenses) and photos from each place, credited inside the app"] },
+      { rol: "Music", nombres: ["Royalty-free tracks from Pixabay, credited inside the app"] },
+  ],
+  cut: [
+      { rol: "Direction", nombres: ["María Sofía Vélez Arrubla", "Emily Vanesa Chisaba Rivera"] },
+      { rol: "Camera", nombres: ["Andrés Castañeda"] },
+      { rol: "Cast", nombres: ["Damián Borda (aggressor)", "Juan Sebastián Rangel (victim)"] },
+      { rol: "Crew", nombres: ["Valentina Torres", "Paula Rozo", "Sofía Real"] },
+      { rol: "Music", nombres: ["“Touch the Sky”, Kanye West. All rights belong to their owners; academic use."] },
+      { rol: "Course", nombres: ["Composición Plástica 4, Universidad El Bosque, 2026"] },
+  ],
+  lobbyboy: [
+      { rol: "Reference", nombres: ["Original The Grand Budapest Hotel poster, not my work"] },
+  ],
+  mambo: [
+      { rol: "Reference works", nombres: ["Saír García", "Óscar Muñoz", "María Isabel Rueda"] },
+  ],
+  chrysos: [
+      { rol: "Character art", nombres: ["HoYoverse, Honkai: Star Rail"] },
+  ],
+  cocacola: [
+      { rol: "Brand", nombres: ["Coca-Cola belongs to The Coca-Cola Company. Academic exercise, not a commission."] },
+  ],
+};
+
 // mezcla los textos en inglés sobre la estructura en español (imágenes, orden, tipos de sección)
 export const OBRAS = ES.OBRAS.map((o) => {
   const t = OBRAS_EN[o.id] ?? {};
@@ -218,6 +253,7 @@ export const OBRAS = ES.OBRAS.map((o) => {
     etiqueta: t.etiqueta ?? o.etiqueta,
     rol: t.rol ?? o.rol,
     texto: t.texto ?? o.texto,
+    creditos: CREDITOS_EN[o.id] ?? o.creditos,
     enlace: o.enlace && { ...o.enlace, texto: t.enlace ?? o.enlace.texto },
     sprites: o.sprites?.map((sp, i) => ({ ...sp, titulo: t.sprites?.[i] ?? sp.titulo })),
     secciones: o.secciones.map((s, i) => {
