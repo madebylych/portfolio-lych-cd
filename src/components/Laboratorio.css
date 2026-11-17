@@ -1,12 +1,10 @@
-/* alto: una pantalla fija + un tramo de scroll por carta */
+/* una sola pantalla: no retiene el scroll, las cartas se pasan con flechas */
 .lab {
   position: relative;
-  height: calc(100svh + var(--n) * 34svh);
 }
 
 .lab__fijo {
-  position: sticky;
-  top: 0;
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
   align-items: center;

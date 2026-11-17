@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap, reduceMotion } from "../lib/motion";
-import { MEDEA as BASE } from "../data/contenido"; // frames y pasos: iguales en los dos idiomas
+import * as ES from "../data/contenido"; // frames y rutas: iguales en los dos idiomas
 import { useContenido, useT } from "../lib/idioma";
 import { useLightbox } from "./Lightbox";
 import Comparador from "./Comparador";
 import "./Medea.css";
 
-export default function Medea({ enPagina = false }) {
+/*
+ * Sección de personaje 3D: turntable con el scroll, pasos del proceso,
+ * comparador render / malla y miniaturas. La usan Medea y Vex
+ * (`personaje` = "MEDEA" o "VEX", la clave del objeto en contenido.js).
+ */
+export default function Medea({ enPagina = false, personaje = "MEDEA" }) {
   const raiz = useRef(null);
   const lienzo = useRef(null);
   const frames = useRef([]);
@@ -14,7 +19,16 @@ export default function Medea({ enPagina = false }) {
   const [paso, setPaso] = useState(0);
   const abrir = useLightbox();
   const t = useT();
-  const { MEDEA } = useContenido();
+  const contenido = useContenido();
+  const BASE = ES[personaje];
+  const MEDEA = contenido[personaje] ?? BASE;
+  // textos de accesibilidad y pies: los del personaje, o los generales de Medea
+  const tx = { ...t.medea, ...(MEDEA.textos ?? {}) };
+  const extras = MEDEA.extras ?? [
+    { src: MEDEA.concepto, pie: tx.concepto, alt: tx.altConcepto },
+    { src: MEDEA.wireCuerpo, pie: tx.cuerpo, alt: tx.altCuerpo },
+  ];
+  const [linea1, ...resto] = MEDEA.titulo.split(" ");
 
   // carga los 120 frames solo cuando la sección se acerca
   useEffect(() => {
@@ -102,11 +116,13 @@ export default function Medea({ enPagina = false }) {
         <div className="medea__texto">
           <h2 id="medea-titulo" className={`medea__titulo ${enPagina ? "solo-lector" : ""}`}>
             <span className="medea__mascara">
-              <span className="medea__linea-texto">Medea</span>
+              <span className="medea__linea-texto">{linea1}</span>
             </span>
-            <span className="medea__mascara">
-              <span className="medea__linea-texto">Kismet</span>
-            </span>
+            {resto.length > 0 && (
+              <span className="medea__mascara">
+                <span className="medea__linea-texto">{resto.join(" ")}</span>
+              </span>
+            )}
           </h2>
           <p className="medea__bajada">{enPagina ? t.medea.gira : MEDEA.bajada}</p>
           <ol className="medea__pasos">
@@ -121,7 +137,7 @@ export default function Medea({ enPagina = false }) {
 
         <div className="medea__escenario">
           <span className="medea__arco" aria-hidden="true" />
-          <canvas ref={lienzo} className="medea__lienzo" role="img" aria-label={t.medea.girando} />
+          <canvas ref={lienzo} className="medea__lienzo" role="img" aria-label={tx.girando} />
           {reduceMotion && <img className="medea__estatica" src={MEDEA.cuerpo} alt="" />}
         </div>
       </div>
@@ -136,21 +152,19 @@ export default function Medea({ enPagina = false }) {
         <Comparador
           debajo={MEDEA.render}
           encima={MEDEA.wire}
-          altDebajo={t.medea.altRender}
-          altEncima={t.medea.altMalla}
-          etiqueta={t.medea.etiquetaComparar}
-          pie={t.medea.pieComparar}
+          altDebajo={tx.altRender}
+          altEncima={tx.altMalla}
+          etiqueta={tx.etiquetaComparar}
+          pie={tx.pieComparar}
         />
 
         <div className="medea__extras">
-          <button className="medea__miniatura" onClick={() => abrir(MEDEA.concepto, t.medea.concepto)} data-cursor="ver">
-            <img src={MEDEA.concepto} alt={t.medea.altConcepto} loading="lazy" />
-            <span>{t.medea.concepto}</span>
-          </button>
-          <button className="medea__miniatura" onClick={() => abrir(MEDEA.wireCuerpo, t.medea.cuerpo)} data-cursor="ver">
-            <img src={MEDEA.wireCuerpo} alt={t.medea.altCuerpo} loading="lazy" />
-            <span>{t.medea.cuerpo}</span>
-          </button>
+          {extras.map((x) => (
+            <button key={x.src} className="medea__miniatura" onClick={() => abrir(x.src, x.pie)} data-cursor="ver">
+              <img src={x.src} alt={x.alt ?? x.pie} loading="lazy" />
+              <span>{x.pie}</span>
+            </button>
+          ))}
         </div>
       </div>
     </section>

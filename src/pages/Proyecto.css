@@ -565,3 +565,17 @@
     padding: 3rem 1rem;
   }
 }
+
+/* videos (Cut!): ancho de lectura, centrados */
+.proyecto__video {
+  max-width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.proyecto__video video {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  background: #000;
+}

@@ -82,6 +82,35 @@ export const MEDEA = {
   frame: (i) => `${M}medea/tt/${String(i).padStart(3, "0")}.webp`,
 };
 
+/* Vex: misma sección que Medea (turntable, pasos, render / malla). Renders de scripts/render_vex.py. */
+export const VEX = {
+  titulo: "Vex",
+  bajada: "Protagonista de NEXO. Gris, pintado a mano, con trama de semitono.",
+  pasos: [
+    { nombre: "Sculpt", texto: "Cuerpo y rostro en alta resolución en ZBrush, a partir de la hoja de personaje gris." },
+    { nombre: "Retopología", texto: "Malla ligera para animar, con los loops de cara y articulaciones pensados para deformar." },
+    { nombre: "Ropa", texto: "Chaqueta sin mangas, camisa, pantalón y zapatos esculpidos y reducidos a mallas animables." },
+    { nombre: "Texturas", texto: "Piel, ojos, dientes y lengua horneados y pintados en Substance Painter." },
+    { nombre: "Rig", texto: "Auto-Rig Pro con controles faciales, parpadeo por shape keys y mandíbula." },
+    { nombre: "Lookdev", texto: "Shader de semitono con contorno en Eevee: sombras escalonadas, nada de realismo." },
+  ],
+  render: M + "vex/busto.webp",
+  wire: M + "vex/wire_busto.webp",
+  cuerpo: M + "vex/cuerpo.webp",
+  wireCuerpo: M + "vex/wire_cuerpo.webp",
+  textos: {
+    girando: "Vex girando 360 grados",
+    altRender: "Render de Vex con su trama de semitono",
+    altMalla: "El mismo render con su malla visible",
+  },
+  extras: [
+    { src: M + "vex/cuerpo.webp", pie: "Cuerpo completo" },
+    { src: M + "vex/wire_cuerpo.webp", pie: "Topología de cuerpo completo" },
+  ],
+  frames: 120,
+  frame: (i) => `${M}vex/tt/${String(i).padStart(3, "0")}.webp`,
+};
+
 /*
  * Proyectos. `etiqueta` y `corto` son el sticker y la línea de la tarjeta del
  * inicio. `secciones` arma la página del proyecto en orden:
@@ -103,6 +132,23 @@ export const OBRAS = [
     tono: "#24103c",
     especial: "medea", // su página usa la sección con turntable y comparador
     secciones: [{ tipo: "medea" }],
+  },
+  {
+    id: "vex",
+    titulo: "Vex",
+    tipo: "Personaje 3D para el corto NEXO, semillero Gráfica Dinámica",
+    corto: "Personaje 3D, estilo pintado a mano",
+    etiqueta: "3D",
+    rol: "Modelado, retopología, ropa, texturas, rig y lookdev",
+    año: 2026,
+    texto:
+      "Vex es el protagonista de NEXO: un desarrollador de inteligencia artificial, brillante, obsesivo y ansioso. Es completamente gris y su look es pintado a mano, con sombras escalonadas y trama de semitono, en la línea de Spider-Verse.",
+    portada: M + "vex/busto.webp",
+    tono: "#141a33",
+    secciones: [
+      { tipo: "medea", personaje: "VEX" },
+      { tipo: "galeria", titulo: "En Blender", imagenes: [M + "vex/rostro.webp", M + "vex/ropa.webp", M + "vex/captura_cuerpo.webp"] },
+    ],
   },
   {
     id: "zenka",
@@ -162,6 +208,24 @@ export const OBRAS = [
     ],
   },
   {
+    id: "tour",
+    titulo: "Hecho en Usaquén",
+    tipo: "App móvil del tour por el Distrito Creativo de Usaquén, proyecto universitario en grupo",
+    corto: "App de tour geolocalizado",
+    etiqueta: "App",
+    rol: "Diseño UX/UI y desarrollo de la app (React Native, Supabase)",
+    año: 2026,
+    texto:
+      "Un tour a pie, gratis, por seis lugares del Distrito Creativo de Usaquén. La app descubre cada parada al llegar, suena un audio por lugar, funciona sin señal y va llenando un pasaporte de sellos mientras el mapa se destapa por donde caminas. La diseñé y la programé yo, como app Android nativa y versión web, en un equipo con Música y Arquitectura.",
+    portada: M + "tour/inicio.webp", // pantalla de inicio de la app (no la pieza gráfica)
+    enlace: { texto: "Probar la app en la web", url: "https://madebylych.github.io/tour-usaquen/" },
+    tono: "#3a1a08",
+    secciones: [
+      { tipo: "galeria", titulo: "La app", imagenes: [M + "tour/inicio.webp", M + "tour/ruta.webp", M + "tour/tour.webp"] },
+      { tipo: "galeria", titulo: "Página de descarga", imagenes: [M + "tour/web.webp"] },
+    ],
+  },
+  {
     id: "fantasma",
     titulo: "Fantasma",
     tipo: "Ilustración para Noxtober",
@@ -181,6 +245,29 @@ export const OBRAS = [
         boceto: M + "lab/fantasma_boceto.webp",
         ayuda: "Arrastra para ver el boceto.",
         vertical: true,
+      },
+    ],
+  },
+  {
+    id: "cut",
+    titulo: "¡Corte!",
+    tipo: "Cortometraje de 13 segundos, Composición Plástica 4",
+    corto: "Cortometraje",
+    etiqueta: "Corto",
+    rol: "Codirección, guion técnico y previz",
+    año: 2026,
+    texto:
+      "Una pelea en un set de grabación sale mal y la palabra corte significa dos cosas: la orden del director y la herida. Durante la pelea no se sabe que es una grabación; cuando el actor cae y alguien grita «¡Corte!», aparece el equipo de producción y se revela el set. Lo codirigí con María Sofía Vélez Arrubla.",
+    portada: M + "cut/portada.webp",
+    tono: "#2a0a10",
+    secciones: [
+      { tipo: "video", titulo: "El corto", src: M + "cut/corte.mp4", poster: M + "cut/poster_corte.webp" },
+      {
+        tipo: "video",
+        titulo: "Prueba del guion",
+        src: M + "cut/previz.mp4",
+        poster: M + "cut/poster_previz.webp",
+        pie: "Previz generada con IA para probar el guion antes de grabar: no son los actores reales.",
       },
     ],
   },
@@ -293,21 +380,6 @@ export const OBRAS = [
 /* Proyectos vivos: se muestran con su etapa real, sin adelantar resultados. */
 export const EN_PROCESO = [
   {
-    titulo: "NEXO",
-    etapa: "En desarrollo",
-    texto: "Una serie de personajes para animación y videojuegos, dentro del semillero Gráfica Dinámica.",
-  },
-  {
-    titulo: "Cut!",
-    etapa: "Preproducción",
-    texto: "Corto donde una pelea en el set termina mal y la palabra corte significa dos cosas.",
-  },
-  {
-    titulo: "Tour Distrito Creativo de Usaquén",
-    etapa: "En desarrollo",
-    texto: "App móvil para recorrer Usaquén con una ruta geolocalizada, sonora y sin conexión. Con Arquitectura y Música.",
-  },
-  {
     titulo: "Álgora",
     etapa: "En desarrollo",
     texto: "Un videojuego sobre la creación digital, dentro del semillero de investigación en IA de la Universidad El Bosque.",
@@ -323,8 +395,7 @@ export const EN_PROCESO = [
 export const GRUPOS_LAB = ["Todo", "Personajes", "Fan art", "Estudios", "Fotografía"];
 
 export const LABORATORIO = [
-  { src: M + "lab/patinadora.webp", titulo: "Mere", nota: "Personaje original", grupos: ["Personajes"] },
-  { src: M + "lab/layne.webp", titulo: "Layne", nota: "Personaje original", grupos: ["Personajes"] },
+  // primera por decisión de Emily (antes era la 3)
   {
     src: M + "lab/fantasia.webp",
     titulo: "Fantasía y realidad",
@@ -333,6 +404,8 @@ export const LABORATORIO = [
     // boceto del mismo tamaño: la pieza se muestra con deslizador boceto / final
     boceto: M + "lab/fantasia_boceto.webp",
   },
+  { src: M + "lab/patinadora.webp", titulo: "Mere", nota: "Personaje original", grupos: ["Personajes"] },
+  { src: M + "lab/layne.webp", titulo: "Layne", nota: "Personaje original", grupos: ["Personajes"] },
   { src: M + "lab/wanderer.webp", titulo: "Wanderer", nota: "Fan art de Genshin Impact", grupos: ["Fan art"] },
   { src: M + "lab/gato_furina.webp", titulo: "Gato Furina", nota: "Fan art de Genshin Impact", grupos: ["Fan art"] },
   { src: M + "lab/hamster.webp", titulo: "Hámster", nota: "Fan art de Genshin Impact", grupos: ["Fan art"] },

@@ -36,7 +36,7 @@ export const TEXTOS = {
     },
     obras: {
       titulo: "Proyectos",
-      bajada: "Nueve trabajos entre ilustración, 3D, videojuegos y web. Elige uno para entrar a su historia.",
+      bajada: "Doce trabajos entre ilustración, 3D, videojuegos y web. Elige uno para entrar a su historia.",
     },
     lab: {
       titulo: "Laboratorio",
@@ -154,7 +154,7 @@ export const TEXTOS = {
     },
     obras: {
       titulo: "Projects",
-      bajada: "Nine works across illustration, 3D, video games and web. Pick one to step into its story.",
+      bajada: "Twelve works across illustration, 3D, video games and web. Pick one to step into its story.",
     },
     lab: {
       titulo: "Laboratory",

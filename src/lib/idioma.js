@@ -4,7 +4,7 @@ import * as EN from "../data/contenido-en";
 import { TEXTOS } from "../data/textos";
 
 /*
- * Idioma del sitio: "es" (por defecto) o "en". La elección se guarda en el
+ * Idioma del sitio: "en" (por defecto) o "es". La elección se guarda en el
  * navegador para la próxima visita y se refleja en <html lang>.
  */
 const CLAVE = "lych-idioma";
@@ -13,13 +13,13 @@ const VALIDOS = ["es", "en"];
 function leerGuardado() {
   try {
     const v = localStorage.getItem(CLAVE);
-    return VALIDOS.includes(v) ? v : "es";
+    return VALIDOS.includes(v) ? v : "en";
   } catch {
-    return "es";
+    return "en";
   }
 }
 
-let actual = typeof window !== "undefined" ? leerGuardado() : "es";
+let actual = typeof window !== "undefined" ? leerGuardado() : "en";
 const oyentes = new Set();
 if (typeof document !== "undefined") document.documentElement.lang = actual;
 

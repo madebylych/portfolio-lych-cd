@@ -102,6 +102,13 @@ function Seccion({ s, o, abrir, t }) {
           {s.luego && <Galeria imagenes={s.luego} titulo={o.titulo} abrir={abrir} t={t} />}
         </>
       );
+    case "video":
+      return (
+        <figure className="proyecto__pieza proyecto__video">
+          <video src={s.src} poster={s.poster} controls playsInline preload="metadata" />
+          {s.pie && <figcaption className="proyecto__pie">{s.pie}</figcaption>}
+        </figure>
+      );
     case "galeria":
       return <Galeria imagenes={s.imagenes} titulo={o.titulo} abrir={abrir} t={t} />;
     case "referencias":
@@ -270,7 +277,7 @@ export default function Proyecto({ id }) {
               <span className="hud">{t.n} 01</span>
               <h2>{t.proyecto.proceso}</h2>
             </header>
-            <Medea enPagina />
+            <Medea enPagina personaje={s.personaje ?? "MEDEA"} />
           </section>
         ) : (
           <section key={s.titulo} className="proyecto__seccion" aria-labelledby={`sec-${k}`}>

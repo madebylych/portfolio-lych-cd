@@ -46,6 +46,28 @@ export const NOMBRE = {
   ],
 };
 
+export const VEX = {
+  ...ES.VEX,
+  bajada: "Lead character of NEXO. Gray, hand-painted, with a halftone pattern.",
+  pasos: [
+    { nombre: "Sculpt", texto: "High-resolution body and face in ZBrush, based on the gray character sheet." },
+    { nombre: "Retopology", texto: "A light mesh for animation, with face and joint loops planned for deformation." },
+    { nombre: "Clothing", texto: "Sleeveless jacket, shirt, trousers and shoes, sculpted and reduced to animatable meshes." },
+    { nombre: "Textures", texto: "Skin, eyes, teeth and tongue baked and painted in Substance Painter." },
+    { nombre: "Rig", texto: "Auto-Rig Pro with facial controls, blinking with shape keys and a jaw." },
+    { nombre: "Lookdev", texto: "A halftone shader with outlines in Eevee: stepped shading, no realism." },
+  ],
+  textos: {
+    girando: "Vex turning 360 degrees",
+    altRender: "Render of Vex with his halftone pattern",
+    altMalla: "The same render with its mesh visible",
+  },
+  extras: [
+    { src: ES.VEX.cuerpo, pie: "Full body" },
+    { src: ES.VEX.wireCuerpo, pie: "Full-body topology" },
+  ],
+};
+
 export const MEDEA = {
   ...ES.MEDEA,
   bajada: "Original character. From sketch to a model ready to animate.",
@@ -65,6 +87,37 @@ const OBRAS_EN = {
     corto: "Original 3D character",
     rol: "Concept, sculpt, retopology, bakes and render",
     texto: "Original character. From sketch to a model ready to animate: concept sheet, sculpt, retopology planned for deformation, 4K normal maps, rig and final render.",
+  },
+  vex: {
+    tipo: "3D character for the short film NEXO, Gráfica Dinámica research group",
+    corto: "3D character, hand-painted style",
+    rol: "Modeling, retopology, clothing, textures, rig and lookdev",
+    texto:
+      "Vex is the lead of NEXO: an artificial intelligence developer, brilliant, obsessive and anxious. He is entirely gray and his look is hand-painted, with stepped shading and a halftone pattern in the vein of Spider-Verse.",
+    secciones: [{}, { titulo: "In Blender" }],
+  },
+  tour: {
+    titulo: "Made in Usaquén",
+    tipo: "Mobile app for a tour of the Usaquén Creative District, group university project",
+    corto: "Geolocated tour app",
+    rol: "UX/UI design and app development (React Native, Supabase)",
+    texto:
+      "A free walking tour through six places in Bogotá's Usaquén Creative District. The app discovers each stop as you arrive, plays an audio per place, works offline and fills a stamp passport while the map uncovers itself where you walk. I designed and built it myself, as a native Android app and a web version, in a team with Music and Architecture students.",
+    enlace: "Try the app on the web",
+    secciones: [{ titulo: "The app" }, { titulo: "Download page" }],
+  },
+  cut: {
+    titulo: "Cut!",
+    tipo: "13-second short film, Composición Plástica 4",
+    corto: "Short film",
+    etiqueta: "Short",
+    rol: "Co-direction, shooting script and previz",
+    texto:
+      "A fight on a film set goes wrong and the word cut means two things: the director's order and the wound. During the fight you don't know it's a shoot; when the actor falls and someone yells “Cut!”, the crew rushes in and the set is revealed. I co-directed it with María Sofía Vélez Arrubla.",
+    secciones: [
+      { titulo: "The short" },
+      { titulo: "Script test", pie: "AI-generated previz to test the script before shooting: these are not the real actors." },
+    ],
   },
   zenka: {
     tipo: "Pixel art platformer and puzzle game, group university project",
@@ -176,19 +229,13 @@ export const OBRAS = ES.OBRAS.map((o) => {
         pares: s.pares?.map((p, k) => ({ ...p, titulo: ts.pares?.[k] ?? p.titulo })),
         luego: s.luego?.map((img, k) => (ts.pies?.[k] && typeof img === "object" ? { ...img, pie: ts.pies[k] } : img)),
         referencias: s.referencias?.map((r, k) => ({ ...r, texto: ts.referencias?.[k] ?? r.texto })),
+        pie: ts.pie ?? s.pie,
       };
     }),
   };
 });
 
 export const EN_PROCESO = [
-  { titulo: "NEXO", etapa: "In development", texto: "A series of characters for animation and video games, within the Gráfica Dinámica research group." },
-  { titulo: "Cut!", etapa: "Pre-production", texto: "A short film where a fight on set goes wrong and the word cut means two things." },
-  {
-    titulo: "Usaquén Creative District Tour",
-    etapa: "In development",
-    texto: "A mobile app to explore Usaquén through a geolocated, audio-guided route that works offline. With Architecture and Music.",
-  },
   { titulo: "Álgora", etapa: "In development", texto: "A video game about digital creation, within Universidad El Bosque's AI research group." },
   { titulo: "Laika", etapa: "Research", texto: "UX research around an ecosystem of pet services." },
 ];

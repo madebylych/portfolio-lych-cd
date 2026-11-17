@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { gsap, irA, reduceMotion, ScrollTrigger } from "../lib/motion";
+import { gsap, reduceMotion } from "../lib/motion";
 import { useContenido, useT } from "../lib/idioma";
 import { useLightbox } from "./Lightbox";
 import { Destello, Fondo } from "./Adornos";
@@ -8,22 +8,10 @@ import "./Laboratorio.css";
 
 const dos = (n) => String(n).padStart(2, "0");
 
-function useMovil() {
-  const consulta = "(max-width: 860px)";
-  const [movil, setMovil] = useState(() => typeof window !== "undefined" && window.matchMedia(consulta).matches);
-  useEffect(() => {
-    const mq = window.matchMedia(consulta);
-    const cambio = () => setMovil(mq.matches);
-    mq.addEventListener("change", cambio);
-    return () => mq.removeEventListener("change", cambio);
-  }, []);
-  return movil;
-}
-
 /*
  * Laboratorio como mazo: la carta del frente es la pieza activa y un panel tipo
- * visor muestra sus datos. En escritorio el scroll pasa las cartas (la sección
- * queda fija); en móvil se pasan deslizando o con las flechas.
+ * visor muestra sus datos. Ocupa una sola pantalla: el scroll sigue de largo y
+ * las cartas se pasan con las flechas, las miniaturas, el teclado o deslizando.
  */
 export default function Laboratorio() {
   const raiz = useRef(null);
@@ -32,7 +20,6 @@ export default function Laboratorio() {
   const t = useT();
   const { GRUPOS_LAB, LABORATORIO } = useContenido();
   const gigante = useRef(null);
-  const movil = useMovil();
   const [grupo, setGrupo] = useState("Todo");
   const [idx, setIdx] = useState(0);
   const piezas = useMemo(() => (grupo === "Todo" ? LABORATORIO : LABORATORIO.filter((p) => p.grupos.includes(grupo))), [grupo, LABORATORIO]);
@@ -56,19 +43,6 @@ export default function Laboratorio() {
   }, []);
   const p = piezas[Math.min(idx, n - 1)];
 
-  // escritorio: el avance del scroll dentro de la sección elige la carta
-  useLayoutEffect(() => {
-    if (movil) return;
-    ScrollTrigger.refresh();
-    const st = ScrollTrigger.create({
-      trigger: raiz.current,
-      start: "top top",
-      end: "bottom bottom",
-      onUpdate: (self) => setIdx(Math.min(n - 1, Math.floor(self.progress * n * 0.999))),
-    });
-    return () => st.kill();
-  }, [movil, n]);
-
   // el título de la pieza entra letra por letra cada vez que cambia
   useEffect(() => {
     if (reduceMotion || !titulo.current) return;
@@ -87,18 +61,11 @@ export default function Laboratorio() {
   }, []);
 
   // lleva el scroll al punto de la sección que corresponde a la carta k
-  const irACarta = (k) => {
-    if (movil) return setIdx(k);
-    const el = raiz.current;
-    const recorrido = el.offsetHeight - window.innerHeight;
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    irA(top + ((k + 0.5) / n) * recorrido);
-  };
+  const irACarta = (k) => setIdx(k);
 
   const filtrar = (g) => {
     setGrupo(g);
     setIdx(0);
-    if (!movil) irA(raiz.current.getBoundingClientRect().top + window.scrollY);
   };
 
   // deslizar con el dedo en móvil
@@ -114,8 +81,13 @@ export default function Laboratorio() {
   const palabras = p.titulo.split(" ");
   const lineas = palabras.length > 1 ? [palabras.slice(0, -1).join(" "), palabras.at(-1)] : [p.titulo];
 
+  const alTeclado = (e) => {
+    if (e.key === "ArrowRight") setIdx((i) => Math.min(n - 1, i + 1));
+    if (e.key === "ArrowLeft") setIdx((i) => Math.max(0, i - 1));
+  };
+
   return (
-    <section id="laboratorio" ref={raiz} className="lab" style={{ "--n": n }} aria-labelledby="lab-titulo">
+    <section id="laboratorio" ref={raiz} className="lab" onKeyDown={alTeclado} aria-labelledby="lab-titulo">
       <div className="lab__fijo">
         <Fondo brillos={[["azul", -150, 200, 900, 800, 0.45, 240], ["violeta", 900, 420, 600, 500, 0.25, 220]]} />
         <h2 id="lab-titulo" ref={gigante} className="lab__gigante contorno">
@@ -211,8 +183,7 @@ export default function Laboratorio() {
             <button className="boton" onClick={() => abrir(p.src, `${p.titulo}. ${p.nota}`)} data-cursor="ver">
               {t.lab.verGrande}
             </button>
-            {movil ? (
-              <span className="lab__flechas">
+            <span className="lab__flechas">
                 <button className="lab__flecha" onClick={() => setIdx((i) => Math.max(0, i - 1))} disabled={idx === 0} aria-label={t.lab.anterior}>
                   ←
                 </button>
@@ -220,9 +191,6 @@ export default function Laboratorio() {
                   →
                 </button>
               </span>
-            ) : (
-              <span className="hud hud--tenue lab__pista">{t.lab.pista}</span>
-            )}
           </div>
 
           <div className="lab__miniaturas">

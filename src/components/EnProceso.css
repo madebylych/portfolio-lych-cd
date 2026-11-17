@@ -33,9 +33,11 @@
   font-size: 1.1rem;
 }
 
+/* pocas tarjetas: el tablero queda centrado, con Álgora primero */
 .proceso__tablero {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(0, 300px));
+  justify-content: center;
   gap: 1.4rem;
   max-width: 1440px;
   margin: 0 auto;
