@@ -89,7 +89,7 @@ export const VEX = {
   pasos: [
     { nombre: "Sculpt", texto: "Cuerpo y rostro en alta resolución en ZBrush, a partir de la hoja de personaje gris." },
     { nombre: "Retopología", texto: "Malla ligera para animar, con los loops de cara y articulaciones pensados para deformar." },
-    { nombre: "Ropa", texto: "Chaqueta sin mangas, camisa, pantalón y zapatos esculpidos y reducidos a mallas animables." },
+    { nombre: "Ropa", texto: "La ropa se generó con IA. Luego se recortó, se redujo a mallas animables y se unió al rig." },
     { nombre: "Texturas", texto: "Piel, ojos, dientes y lengua horneados y pintados en Substance Painter." },
     { nombre: "Rig", texto: "Auto-Rig Pro con controles faciales, parpadeo por shape keys y mandíbula." },
     { nombre: "Lookdev", texto: "Shader de semitono con contorno en Eevee: sombras escalonadas, nada de realismo." },
@@ -139,10 +139,10 @@ export const OBRAS = [
     tipo: "Personaje 3D para el corto NEXO, semillero Gráfica Dinámica",
     corto: "Personaje 3D, estilo pintado a mano",
     etiqueta: "3D",
-    rol: "Modelado, retopología, ropa, texturas, rig y lookdev",
+    rol: "Modelado, retopología, texturas, rig y lookdev (la ropa se generó con IA)",
     año: 2026,
     texto:
-      "Vex es el protagonista de NEXO: un desarrollador de inteligencia artificial, brillante, obsesivo y ansioso. Es completamente gris y su look es pintado a mano, con sombras escalonadas y trama de semitono, en la línea de Spider-Verse.",
+      "Vex es el protagonista de NEXO: un desarrollador de inteligencia artificial, brillante, obsesivo y ansioso. Es completamente gris y su look es pintado a mano, con sombras escalonadas y trama de semitono, en la línea de Spider-Verse. La ropa se generó con IA y después se adaptó al personaje.",
     portada: M + "vex/busto.webp",
     tono: "#141a33",
     secciones: [

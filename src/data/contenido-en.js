@@ -52,7 +52,7 @@ export const VEX = {
   pasos: [
     { nombre: "Sculpt", texto: "High-resolution body and face in ZBrush, based on the gray character sheet." },
     { nombre: "Retopology", texto: "A light mesh for animation, with face and joint loops planned for deformation." },
-    { nombre: "Clothing", texto: "Sleeveless jacket, shirt, trousers and shoes, sculpted and reduced to animatable meshes." },
+    { nombre: "Clothing", texto: "The clothing was generated with AI, then cut, reduced to animatable meshes and bound to the rig." },
     { nombre: "Textures", texto: "Skin, eyes, teeth and tongue baked and painted in Substance Painter." },
     { nombre: "Rig", texto: "Auto-Rig Pro with facial controls, blinking with shape keys and a jaw." },
     { nombre: "Lookdev", texto: "A halftone shader with outlines in Eevee: stepped shading, no realism." },
@@ -91,9 +91,9 @@ const OBRAS_EN = {
   vex: {
     tipo: "3D character for the short film NEXO, Gráfica Dinámica research group",
     corto: "3D character, hand-painted style",
-    rol: "Modeling, retopology, clothing, textures, rig and lookdev",
+    rol: "Modeling, retopology, textures, rig and lookdev (clothing generated with AI)",
     texto:
-      "Vex is the lead of NEXO: an artificial intelligence developer, brilliant, obsessive and anxious. He is entirely gray and his look is hand-painted, with stepped shading and a halftone pattern in the vein of Spider-Verse.",
+      "Vex is the lead of NEXO: an artificial intelligence developer, brilliant, obsessive and anxious. He is entirely gray and his look is hand-painted, with stepped shading and a halftone pattern in the vein of Spider-Verse. His clothing was generated with AI and then adapted to the character.",
     secciones: [{}, { titulo: "In Blender" }],
   },
   tour: {
